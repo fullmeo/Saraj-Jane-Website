@@ -2,7 +2,7 @@
 // À exécuter dans le navigateur sur la page generate-icons.html
 
 // Taille des icônes à générer (en pixels)
-const iconSizes = [72, 96, 128, 144, 152, 192, 384, 512];
+const iconSizes = [16, 32, 72, 96, 128, 144, 152, 180, 192, 384, 512];
 
 // Fonction pour créer une icône de base
 function createIcon(size) {
@@ -33,7 +33,15 @@ function createIcon(size) {
 // Fonction pour télécharger l'icône
 function downloadIcon(size) {
     const link = document.createElement('a');
-    link.download = `icon-${size}x${size}.png`;
+    if (size === 16) {
+        link.download = 'favicon-16x16.png';
+    } else if (size === 32) {
+        link.download = 'favicon-32x32.png';
+    } else if (size === 180) {
+        link.download = 'apple-touch-icon.png';
+    } else {
+        link.download = `icon-${size}x${size}.png`;
+    }
     link.href = createIcon(size);
     link.click();
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Icon Data Generator</title>
+    <style>
+        body { font-family: monospace; white-space: pre; }
+    </style>
+</head>
+<body>
+    <script>
+        const iconSizes = [16, 32, 72, 96, 128, 144, 152, 180, 192, 384, 512];
+
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#4a148c';
+            ctx.fillRect(0, 0, size, size);
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const fontSize = Math.floor(size * 0.4);
+            ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+            ctx.fillText('SJ', size / 2, size / 2);
+            return canvas.toDataURL('image/png');
+        }
+
+        function generateIconData() {
+            let output = '';
+            iconSizes.forEach(size => {
+                let filename = `icon-${size}x${size}.png`;
+                if (size === 16) {
+                    filename = 'favicon-16x16.png';
+                } else if (size === 32) {
+                    filename = 'favicon-32x32.png';
+                } else if (size === 180) {
+                    filename = 'apple-touch-icon.png';
+                }
+                const dataUrl = createIcon(size);
+                output += `<div class="icon-data">\n`;
+                output += `  <div class="filename">${filename}</div>\n`;
+                output += `  <div class="data">${dataUrl}</div>\n`;
+                output += `</div>\n\n`;
+            });
+            document.body.innerHTML = output;
+        }
+
+        generateIconData();
+    </script>
+</body>
+</html>
