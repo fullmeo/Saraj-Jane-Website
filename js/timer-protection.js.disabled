@@ -1,0 +1,53 @@
+// Protection spécialisée Timers - Sarah-Jane Iffra (CORRIGÉE)
+console.log(' Protection timers activée (version corrigée)');
+
+// Intercepter setTimeout global
+const originalSetTimeout = window.setTimeout;
+window.setTimeout = function(callback, delay, ...args) {
+    const protectedCallback = function() {
+        try {
+            if (typeof callback === 'function') {
+                return callback.apply(this, arguments);
+            } else {
+                const code = callback.toString();
+                if (code.includes('undefined') || code.includes('null')) {
+                    console.warn(' setTimeout avec code suspect bloqué:', code);
+                    return;
+                }
+                return eval(code);
+            }
+        } catch (error) {
+            console.warn(' setTimeout erreur interceptée:', error);
+        }
+    };
+    
+    return originalSetTimeout.call(this, protectedCallback, delay, ...args);
+};
+
+// Protection Image plus simple (SANS modifier onload)
+const OriginalImage = window.Image;
+window.Image = function() {
+    const img = new OriginalImage();
+    
+    // Surveillance des src undefined seulement
+    const originalSrcDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+    if (originalSrcDescriptor && originalSrcDescriptor.set) {
+        Object.defineProperty(img, 'src', {
+            set: function(value) {
+                if (!value || value === 'undefined' || value.toString().includes('undefined')) {
+                    console.warn(' Image.src undefined bloqué:', value);
+                    originalSrcDescriptor.set.call(this, '');
+                    return;
+                }
+                originalSrcDescriptor.set.call(this, value);
+            },
+            get: originalSrcDescriptor.get,
+            configurable: true,
+            enumerable: true
+        });
+    }
+    
+    return img;
+};
+
+console.log('✅ Protection timers corrigée configurée');

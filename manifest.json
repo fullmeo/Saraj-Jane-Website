@@ -1,0 +1,19 @@
+{
+  "name": "Sarah-Jane Iffra - Artiste & Musicienne",
+  "short_name": "Sarah-Jane",
+  "description": "Portfolio artistique de Sarah-Jane Iffra - Compositions musicales et créations visuelles",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23667eea'/><stop offset='50%25' style='stop-color:%23764ba2'/><stop offset='100%25' style='stop-color:%23667eea'/></linearGradient></defs><rect width='192' height='192' fill='url(%23grad)'/><circle cx='96' cy='96' r='70' fill='none' stroke='rgba(255,255,255,0.3)' stroke-width='3'/><text x='96' y='110' text-anchor='middle' fill='white' font-family='Arial' font-size='48' font-weight='bold'>SJ</text><text x='96' y='130' text-anchor='middle' fill='white' font-family='Arial' font-size='12'>ARTIST</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

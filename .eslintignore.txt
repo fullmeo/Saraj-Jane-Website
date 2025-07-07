@@ -1,0 +1,6 @@
+node_modules/
+dist/
+build/
+_archive/
+_private/
+public_backup_*

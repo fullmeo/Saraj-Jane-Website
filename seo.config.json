@@ -1,0 +1,170 @@
+{
+  "site": {
+    "name": "Sarah-Jane Iffra",
+    "url": "https://sarah-jane-iffra.com",
+    "language": "fr",
+    "region": "FR-69",
+    "country": "France"
+  },
+  "seo": {
+    "title": {
+      "home": "Sarah-Jane Iffra | Chanteuse d'Alertes & Tribute Amy Winehouse | Lyon Vénissieux",
+      "maxLength": 60
+    },
+    "description": {
+      "home": "Sarah-Jane Iffra - Chanteuse d'alertes et tribute Amy Winehouse à Lyon. Spectacles jazz soul, coaching vocal Vénissieux, solo voix avec playlist audio. 18K abonnés YouTube #sarahjaneiffra",
+      "maxLength": 160
+    },
+    "keywords": {
+      "primary": [
+        "Sarah-Jane Iffra",
+        "chanteuse alertes Lyon",
+        "tribute Amy Winehouse",
+        "spectacles jazz soul Vénissieux",
+        "coaching vocal Rhône-Alpes",
+        "solo voix playlist audio",
+        "sarahjaneiffra",
+        "YouTube 18K abonnés",
+        "musique groupe",
+        "chansons d'alertes",
+        "jazz français"
+      ],
+      "secondary": [
+        "spectacles live Lyon",
+        "coaching vocal Lyon",
+        "tribute Amy Winehouse Lyon",
+        "chanteuse jazz Vénissieux",
+        "musique engagée",
+        "spectacles privés",
+        "événements Lyon",
+        "mariages Lyon",
+        "festivals Rhône-Alpes"
+      ]
+    }
+  },
+  "social": {
+    "youtube": {
+      "channel": "@sarahjaneiffra",
+      "subscribers": "18100",
+      "views": "1900000"
+    },
+    "facebook": {
+      "page": "SarahJaneIffra",
+      "followers": "4000"
+    },
+    "instagram": {
+      "handle": "@sarahjaneiffra"
+    },
+    "twitter": {
+      "handle": "@sarahjaneiffra"
+    }
+  },
+  "content": {
+    "sections": [
+      {
+        "id": "hero",
+        "title": "Sarah-Jane Iffra - Artiste à Double Identité",
+        "keywords": ["chanteuse alertes", "tribute Amy Winehouse", "jazz soul"]
+      },
+      {
+        "id": "gallery",
+        "title": "Galerie Photos - Sarah-Jane Iffra",
+        "keywords": ["photos Sarah-Jane Iffra", "spectacles live", "portraits artistiques"]
+      },
+      {
+        "id": "jazz",
+        "title": "Univers Jazz & Soul - Sarah-Jane Iffra",
+        "keywords": ["jazz français", "tribute Amy Winehouse", "standards jazz"]
+      },
+      {
+        "id": "alerts",
+        "title": "Chansons d'Alertes - Sarah-Jane Iffra",
+        "keywords": ["chansons d'alertes", "messages citoyens", "musique engagée"]
+      },
+      {
+        "id": "contact",
+        "title": "Contact & Réservations - Sarah-Jane Iffra",
+        "keywords": ["contact Sarah-Jane Iffra", "réservations spectacles", "coaching vocal"]
+      }
+    ]
+  },
+  "performance": {
+    "coreWebVitals": {
+      "lcp": "< 2.5s",
+      "fid": "< 100ms",
+      "cls": "< 0.1"
+    },
+    "optimizations": [
+      "lazy-loading-images",
+      "preload-critical-resources",
+      "minify-css-js",
+      "compress-images",
+      "use-webp-format",
+      "optimize-fonts"
+    ]
+  },
+  "analytics": {
+    "googleAnalytics": "G-XXXXXXXXXX",
+    "googleTagManager": "GTM-XXXXXX",
+    "facebookPixel": "XXXXXXXXXXXXXXX",
+    "hotjar": "1234567"
+  },
+  "structuredData": {
+    "types": [
+      "MusicGroup",
+      "Person",
+      "WebSite",
+      "BreadcrumbList",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "enhancements": [
+      "geo-coordinates",
+      "aggregate-ratings",
+      "event-schema",
+      "offer-catalog",
+      "social-profiles"
+    ]
+  },
+  "localSEO": {
+    "business": {
+      "name": "Sarah-Jane Iffra",
+      "type": "MusicGroup",
+      "address": {
+        "street": "Vénissieux",
+        "city": "Vénissieux",
+        "region": "Rhône-Alpes",
+        "postalCode": "69200",
+        "country": "France"
+      },
+      "coordinates": {
+        "latitude": 45.6975,
+        "longitude": 4.8883
+      },
+      "phone": "+33-6-XX-XX-XX-XX",
+      "email": "ifrasoleil@gmail.com",
+      "hours": "Sur réservation",
+      "services": [
+        "Spectacles Live - Tribute Amy Winehouse",
+        "Spectacles Live - Chansons d'Alertes",
+        "Coaching Vocal"
+      ]
+    }
+  },
+  "monitoring": {
+    "tools": [
+      "Google Search Console",
+      "Google Analytics",
+      "Google PageSpeed Insights",
+      "GTmetrix",
+      "Screaming Frog"
+    ],
+    "metrics": [
+      "organic-traffic",
+      "keyword-rankings",
+      "page-speed",
+      "mobile-usability",
+      "core-web-vitals"
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+/**
+ * Notifications et boîtes de dialogue personnalisées
+ * Styles pour les notifications toast et les boîtes de dialogue modales
+ */
+
+/* Variables CSS pour les couleurs */
+:root {
+    --color-primary: #4a148c;
+    --color-primary-light: #7b1fa2;
+    --color-secondary: #ff6f00;
+    --color-success: #2e7d32;
+    --color-error: #d32f2f;
+    --color-warning: #ed6c02;
+    --color-info: #0288d1;
+    --color-background: #ffffff;
+    --color-surface: #f5f5f5;
+    --color-text: #212121;
+    --color-text-secondary: #757575;
+    --color-border: #e0e0e0;
+}
+
+/* Mode sombre */
+[data-theme="dark"] {
+    --color-background: #121212;
+    --color-surface: #1e1e1e;
+    --color-text: #e0e0e0;
+    --color-text-secondary: #9e9e9e;
+    --color-border: #424242;
+}
+
+/* Notifications toast */
+.notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 400px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    background: var(--color-background);
+    color: var(--color-text);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    pointer-events: auto;
+    overflow: hidden;
+    border-left: 4px solid transparent;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.notification-icon {
+    font-weight: bold;
+    font-size: 1.2rem;
+    min-width: 24px;
+    text-align: center;
+}
+
+.notification-message {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    opacity: 0.7;
+    padding: 0.25rem;
+    margin-left: 0.5rem;
+    transition: opacity 0.2s;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
+/* Types de notifications */
+.notification.success {
+    border-left-color: var(--color-success);
+    background-color: rgba(46, 125, 50, 0.1);
+    color: var(--color-success);
+}
+
+.notification.error {
+    border-left-color: var(--color-error);
+    background-color: rgba(211, 47, 47, 0.1);
+    color: var(--color-error);
+}
+
+.notification.warning {
+    border-left-color: var(--color-warning);
+    background-color: rgba(237, 108, 2, 0.1);
+    color: var(--color-warning);
+}
+
+.notification.info {
+    border-left-color: var(--color-info);
+    background-color: rgba(2, 136, 209, 0.1);
+    color: var(--color-info);
+}
+
+/* Boîtes de dialogue modales */
+.custom-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    z-index: 1;
+}
+
+.dialog-content {
+    position: relative;
+    background: var(--color-background);
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    animation: dialogFadeIn 0.3s ease-out;
+}
+
+@keyframes dialogFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dialog-content h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    font-size: 1.25rem;
+}
+
+.dialog-content p {
+    margin: 0 0 1.5rem;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+/* Animation de chargement */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+/* Styles pour les messages d'erreur globaux */
+.global-error {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-error);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1100;
+    display: none;
+    max-width: 90%;
+    text-align: center;
+}
+
+/* Styles pour les écrans mobiles */
+@media (max-width: 768px) {
+    .notification {
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+        bottom: 1rem;
+    }
+    
+    .dialog-content {
+        margin: 1rem;
+        padding: 1.25rem;
+    }
+    
+    .dialog-buttons {
+        flex-direction: column;
+    }
+    
+    .dialog-buttons .btn {
+        width: 100%;
+    }
+}

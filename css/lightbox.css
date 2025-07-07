@@ -1,0 +1,269 @@
+/* Styles pour la lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-main {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #111;
+    overflow: hidden;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.lightbox-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.lightbox-loader .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--color-primary);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.lightbox-caption {
+    padding: 1.5rem;
+    background-color: var(--color-bg);
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+}
+
+.lightbox-title {
+    font-size: 1.5rem;
+    color: var(--color-heading);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+}
+
+.lightbox-desc {
+    color: var(--color-text);
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.lightbox-counter {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.lightbox-close,
+.lightbox-nav {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+    background: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.lightbox-close {
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.lightbox-nav.prev {
+    left: 15px;
+}
+
+.lightbox-nav.next {
+    right: 15px;
+}
+
+/* Styles pour le mode plein écran */
+.lightbox.fullscreen .lightbox-content {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+}
+
+.lightbox.fullscreen .lightbox-image {
+    max-height: calc(100vh - 100px);
+}
+
+/* Styles responsifs */
+@media (max-width: 992px) {
+    .lightbox-content {
+        max-width: 95%;
+    }
+    
+    .lightbox-caption {
+        padding: 1.2rem;
+    }
+    
+    .lightbox-title {
+        font-size: 1.3rem;
+    }
+    
+    .lightbox-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .lightbox {
+        padding: 1rem;
+    }
+    
+    .lightbox-content {
+        max-width: 100%;
+        max-height: 95vh;
+    }
+    
+    .lightbox-caption {
+        padding: 1rem;
+    }
+    
+    .lightbox-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .lightbox-desc {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .lightbox-counter {
+        font-size: 0.8rem;
+    }
+    
+    .lightbox-close,
+    .lightbox-nav {
+        width: 32px;
+        height: 32px;
+        font-size: 1.3rem;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .lightbox-nav.prev {
+        left: 10px;
+    }
+    
+    .lightbox-nav.next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lightbox {
+        padding: 0.5rem;
+    }
+    
+    .lightbox-content {
+        max-height: 100%;
+        border-radius: 0;
+    }
+    
+    .lightbox-caption {
+        padding: 0.8rem;
+    }
+    
+    .lightbox-title {
+        font-size: 1.1rem;
+    }
+    
+    .lightbox-desc {
+        display: none; /* Cacher la description sur mobile pour gagner de l'espace */
+    }
+    
+    .lightbox-close,
+    .lightbox-nav {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
+}

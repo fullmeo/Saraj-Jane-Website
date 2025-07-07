@@ -1,0 +1,135 @@
+<!-- Créez: optimize-images.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Optimiseur d'Images SJ</title>
+</head>
+<body>
+    <h1>🎨 Optimisation des Images de Sarah-Jane</h1>
+    <div id="progress"></div>
+    <div id="results"></div>
+
+    <script>
+    class ImageOptimizer {
+        constructor() {
+            this.images = [
+                'IMG_20250531_121300_188.jpg',
+                'IMG_20250531_121300_188.jpg',
+                'IMG_20250531_121311_304.jpg',
+                'IMG_20250531_121432_334.jpg',
+                'IMG_20250531_121451_526.jpg',
+                'IMG_20250531_121503_326.jpg',
+                'IMG_20250531_121511_344.jpg',
+                'IMG_20250531_121521_215.jpg',
+                'IMG_20250531_121521_232.jpg',
+                'IMG_20250531_121522_972.jpg',
+                'IMG_20250531_121533_522.jpg',
+                'IMG_20250531_152502_459.jpg'
+            ];
+            this.optimized = [];
+        }
+
+        async optimizeAll() {
+            const progress = document.getElementById('progress');
+            const results = document.getElementById('results');
+            
+            for (let i = 0; i < this.images.length; i++) {
+                const imageName = this.images[i];
+                progress.innerHTML = `Optimisation: ${i + 1}/${this.images.length} - ${imageName}`;
+                
+                try {
+                    const optimizedData = await this.optimizeImage(`./images/gallery/${imageName}`);
+                    this.optimized.push({
+                        original: imageName,
+                        optimized: optimizedData,
+                        savings: this.calculateSavings(optimizedData)
+                    });
+                } catch (error) {
+                    console.error(`Erreur avec ${imageName}:`, error);
+                }
+            }
+            
+            this.displayResults();
+        }
+
+        async optimizeImage(imagePath) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = () => {
+                    // Redimensionner intelligemment
+                    const maxWidth = 1200;
+                    const maxHeight = 800;
+                    
+                    let { width, height } = img;
+                    
+                    if (width > maxWidth) {
+                        height = (height * maxWidth) / width;
+                        width = maxWidth;
+                    }
+                    
+                    if (height > maxHeight) {
+                        width = (width * maxHeight) / height;
+                        height = maxHeight;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    // Dessiner avec optimisation
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Compression JPEG haute qualité
+                    const optimizedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    
+                    resolve({
+                        dataUrl: optimizedDataUrl,
+                        dimensions: { width, height },
+                        originalSize: imagePath.length * 1000, // Approximation
+                        optimizedSize: optimizedDataUrl.length
+                    });
+                };
+                
+                img.src = imagePath;
+            });
+        }
+
+        calculateSavings(data) {
+            const savings = ((data.originalSize - data.optimizedSize) / data.originalSize) * 100;
+            return Math.max(0, savings).toFixed(1);
+        }
+
+        displayResults() {
+            const results = document.getElementById('results');
+            let html = '<h2>✅ Optimisation Terminée</h2>';
+            
+            this.optimized.forEach((item, index) => {
+                html += `
+                    <div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 10px;">
+                        <h3>${item.original}</h3>
+                        <p>📐 Dimensions: ${item.optimized.dimensions.width}x${item.optimized.dimensions.height}</p>
+                        <p>💾 Économie: ${item.savings}%</p>
+                        <a href="${item.optimized.dataUrl}" download="optimized_${index + 1}.jpg" 
+                           style="background: #667eea; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                           📥 Télécharger Optimisée
+                        </a>
+                    </div>
+                `;
+            });
+            
+            results.innerHTML = html;
+        }
+    }
+
+    // Lancer l'optimisation
+    document.addEventListener('DOMContentLoaded', () => {
+        const optimizer = new ImageOptimizer();
+        optimizer.optimizeAll();
+    });
+    </script>
+</body>
+</html>

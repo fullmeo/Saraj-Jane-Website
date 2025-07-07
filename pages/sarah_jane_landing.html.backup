@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah-Jane Iffra | Chanteuse d'Alertes & Artiste Jazz/Soul</title>
+    <meta name="description" content="Sarah-Jane Iffra : Artiste complète entre Jazz/Soul et chansons d'alertes. Tribute Amy Winehouse, coach vocal, et messages citoyens engagés.">
+    <meta name="keywords" content="Sarah-Jane Iffra, chanteuse d'alertes, tribute Amy Winehouse, jazz soul, coach vocal, Lyon, musique engagée">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-purple: #6B46C1;
+            --alert-red: #DC2626;
+            --jazz-blue: #1E40AF;
+            --background-dark: #0F1419;
+            --background-light: #1A1B23;
+            --text-light: #F8FAFC;
+            --text-gray: #94A3B8;
+            --accent-cyan: #06B6D4;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--background-dark) 0%, var(--background-light) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 2rem 2rem;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-light);
+            max-width: 500px;
+        }
+
+        .dual-identity {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .identity-badge {
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .jazz-badge {
+            background: rgba(30, 64, 175, 0.2);
+            border-color: var(--jazz-blue);
+            color: var(--jazz-blue);
+        }
+
+        .alert-badge {
+            background: rgba(220, 38, 38, 0.2);
+            border-color: var(--alert-red);
+            color: var(--alert-red);
+        }
+
+        .identity-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold), #B8860B);
+            color: var(--background-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--primary-gold);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #B8860B, var(--primary-gold));
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-gold);
+            color: var(--background-dark);
+        }
+
+        /* Hero Visual avec Photos */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .artist-photo-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-gold);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .main-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .artist-photo-container:hover .main-photo {
+            transform: scale(1.1);
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            animation: orbit 10s linear infinite;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: -2s;
+        }
+
+        .floating-icon:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -4s;
+        }
+
+        .floating-icon:nth-child(4) {
+            bottom: 10%;
+            right: 20%;
+            animation-delay: -6s;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.1), rgba(6, 182, 212, 0.1));
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-gold);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* Galerie Photos */
+        .gallery-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(26, 27, 35, 0.9), rgba(15, 20, 25, 0.95));
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gallery-subtitle {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+            height: 600px;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .photo-item.featured {
+            grid-row: 1 / -1;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .photo-overlay h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--primary-gold);
+        }
+
+        .photo-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 25px 75px rgba(0, 0, 0, 0.7);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: var(--primary-gold);
+            border: none;
+            color: var(--background-dark);
+            font-size: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.1);
+            background: var(--accent-cyan);
+        }
+
+        /* Dual Player Section */
+        .dual-player {
+            padding: 4rem 2rem;
+            background: rgba(26, 27, 35, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .player-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .player-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .player-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: rgba(15, 20, 25, 0.8);
+            border-radius: 50px;
+            padding: 0.5rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .player-tab {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            background: transparent;
+            color: var(--text-gray);
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .player-tab.active {
+            background: var(--primary-gold);
+            color: var(--background-dark);
+        }
+
+        .player-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .player-content.active {
+            display: block;
+        }
+
+        .track-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .track-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .track-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .track-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .track-description {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 2rem;
+            background: rgba(15, 20, 25, 0.9);
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        /* Social Links */
+        .social-section {
+            padding: 3rem 2rem;
+            background: rgba(26, 27, 35, 0.8);
+            text-align: center;
+        }
+
+        .social-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-gold);
+            color: var(--background-dark);
+            transform: translateY(-3px);
+        }
+
+        .social-icon {
+            font-size: 1.25rem;
+        }
+
+        /* Support Section */
+        .support {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(212, 175, 55, 0.1));
+            text-align: center;
+        }
+
+        .support-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .support-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .support-description {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+        }
+
+        .tipeee-widget {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--primary-gold);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 400px;
+        }
+
+        .tipeee-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .tipeee-label {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--background-dark);
+            padding: 3rem 2rem 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .copyright {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .dual-identity {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .artist-photo-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, 250px);
+                height: auto;
+            }
+            
+            .photo-item.featured {
+                grid-row: auto;
+            }
+        }
+
+        /* Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Sarah-Jane Iffra</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#accueil">Accueil</a></li>
+                <li class="nav-item"><a href="#galerie">Galerie</a></li>
+                <li class="nav-item"><a href="#musique">Musique</a></li>
+                <li class="nav-item"><a href="#services">Services</a></li>
+                <li class="nav-item"><a href="#soutien">Soutien</a></li>
+                <li class="nav-item"><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Sarah-Jane Iffra</h1>
+                <p class="hero-subtitle">Chanteuse d'Alertes • Auteure-Compositrice • Coach Vocal</p>
+                <p class="hero-description">
+                    De Vénissieux aux scènes internationales, ma voix unit l'art intemporel et l'éveil citoyen. 
+                    Entre jazz authentique et messages engagés.
+                </p>
+                
+                <div class="dual-identity">
+                    <div class="identity-badge jazz-badge">
+                        🎵 Jazz • Soul • Tribute Amy
+                    </div>
+                    <div class="identity-badge alert-badge">
+                        🚨 Chansons d'Alertes
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#musique" class="btn btn-primary">
+                        🎵 Découvrir ma musique
+                    </a>
+                    <a href="#soutien" class="btn btn-secondary">
+                        💰 Me soutenir
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="artist-photo-container">
+                    <!-- CORRECTION : Chemin image corrigé -->
+                    <img src="images/gallery/IMG_20250531_121533_522.jpg" alt="Sarah-Jane Iffra en concert" class="main-photo">
+                    <div class="floating-icons">
+                        <div class="floating-icon">🎵</div>
+                        <div class="floating-icon">🚨</div>
+                        <div class="floating-icon">✨</div>
+                        <div class="floating-icon">🎯</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats scroll-reveal">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">4K+</div>
+                <div class="stat-label">Followers Facebook</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">696</div>
+                <div class="stat-label">Followers Instagram</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">18.1K</div>
+                <div class="stat-label">Abonnés YouTube</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1.9M</div>
+                <div class="stat-label">Vues YouTube</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">300+</div>
+                <div class="stat-label">Chansons au répertoire</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">9+</div>
+                <div class="stat-label">Années d'expérience</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerie Photos -->
+    <section id="galerie" class="gallery-section scroll-reveal">
+        <div class="gallery-container">
+            <h2 class="gallery-title">En Images</h2>
+            <p class="gallery-subtitle">Découvrez l'univers artistique de Sarah-Jane</p>
+            
+            <div class="photo-grid">
+                <!-- CORRECTION : Tous les chemins images corrigés -->
+                <div class="photo-item featured" onclick="openLightbox('images/gallery/IMG_20250531_121533_522.jpg')">
+                    <img src="images/gallery/IMG_20250531_121533_522.jpg" alt="Sarah-Jane en concert">
+                    <div class="photo-overlay">
+                        <h3>Sur Scène</h3>
+                        <p>L'émotion en direct</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item" onclick="openLightbox('images/gallery/IMG_20250531_121300_188.jpg')">
+                    <img src="images/gallery/IMG_20250531_121300_188.jpg" alt="Portrait artistique">
+                    <div class="photo-overlay">
+                        <h3>Portrait Artistique</h3>
+                        <p>L'artiste et l'auteure</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item" onclick="openLightbox('images/gallery/IMG_20250531_121311_304.jpg')">
+                    <img src="images/gallery/IMG_20250531_121311_304.jpg" alt="En studio">
+                    <div class="photo-overlay">
+                        <h3>En Studio</h3>
+                        <p>Création musicale</p>
+                    </div>
+                </div>
+                
+                <div class="photo-item" onclick="openLightbox('images/gallery/IMG_20250531_121432_334.jpg')">
+                    <img src="images/gallery/IMG_20250531_121432_334.jpg" alt="Portrait">
+                    <div class="photo-overlay">
+                        <h3>Portrait</h3>
+                        <p>L'âme de l'artiste</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Player Section -->
+    <section id="musique" class="dual-player scroll-reveal">
+        <div class="player-container">
+            <h2 class="player-title">Mon Univers Musical</h2>
+            
+            <div class="player-tabs">
+                <button class="player-tab active" data-tab="jazz">Jazz • Soul</button>
+                <button class="player-tab" data-tab="alertes">Chansons d'Alertes</button>
+            </div>
+
+            <div class="player-content active" id="jazz-content">
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">
+                    De Amy Winehouse aux grands standards, découvrez mon univers jazz et soul authentique.
+                </p>
+                <div class="track-list">
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">🎭 Tribute to Amy Winehouse</div>
+                        <div class="track-description">Mon show signature qui m'a fait connaître du public</div>
+                    </div>
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">🎵 Standards Jazz & Blues</div>
+                        <div class="track-description">Etta James, Randy Crawford, James Brown...</div>
+                    </div>
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">🎼 Compositions Originales</div>
+                        <div class="track-description">Mes créations personnelles en français et anglais</div>
+                    </div>
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">🌍 Répertoire International</div>
+                        <div class="track-description">50 ans de musique qui ont marqué leur époque</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="player-content" id="alertes-content">
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">
+                    Mes "musiques illicites" : parodies engagées et messages citoyens sans filtre.
+                </p>
+                <div class="track-list">
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">🔥 "Soirées Parisiennes"</div>
+                        <div class="track-description">Dénonciation de la décadence du pouvoir</div>
+                    </div>
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">🚫 "Passe Pas"</div>
+                        <div class="track-description">Critique de la supercherie sanitaire</div>
+                    </div>
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">🎯 "La Levrette"</div>
+                        <div class="track-description">Parodie de "La Boulette" - QR code et liberté</div>
+                    </div>
+                    <div class="track-item" onclick="window.open('https://www.youtube.com/@sarahjaneiffra', '_blank')">
+                        <div class="track-title">📢 "Bla Bla Bla"</div>
+                        <div class="track-description">Pastiche des Rita Mitsouko - Lapsus révélateurs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services scroll-reveal">
+        <div class="services-container">
+            <h2 class="services-title">Mes Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🎤</span>
+                    <h3>Spectacles & Concerts</h3>
+                    <p>Mariages, événements privés, festivals. Tribute Amy Winehouse ou répertoire jazz/soul personnalisé selon vos envies.</p>
+                    <div class="service-price">Sur devis</div>
+                    <a href="#contact" class="btn btn-primary">Réserver</a>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🎓</span>
+                    <h3>Coaching Vocal</h3>
+                    <p>Cours particuliers et stages. Technique vocale, interprétation, confiance en soi. Tous niveaux, de l'amateur au professionnel.</p>
+                    <div class="service-price">À partir de 60€/h</div>
+                    <a href="#contact" class="btn btn-primary">Réserver</a>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🎬</span>
+                    <h3>Studio & Enregistrements</h3>
+                    <p>Voix off, jingles, choeurs. Expérience en studio et chaînes télévisées. Qualité professionnelle garantie.</p>
+                    <div class="service-price">Sur devis</div>
+                    <a href="#contact" class="btn btn-primary">Demander</a>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🚨</span>
+                    <h3>Conférences Engagées</h3>
+                    <p>Interventions sur l'art engagé, la liberté d'expression, l'éveil citoyen. Associations, collectifs, événements alternatifs.</p>
+                    <div class="service-price">Sur devis</div>
+                    <a href="#contact" class="btn btn-primary">Inviter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links -->
+    <section class="social-section scroll-reveal">
+        <h2 class="social-title">Suivez-moi & Restez Connectés</h2>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@sarahjaneiffra" class="social-link" target="_blank">
+                <span class="social-icon">📺</span>
+                YouTube - 18.1K abonnés
+            </a>
+            <a href="https://www.facebook.com/SarahJaneMusique/" class="social-link" target="_blank">
+                <span class="social-icon">📘</span>
+                Facebook - 4K+ fans
+            </a>
+            <a href="https://www.instagram.com/sarah_jane_iffra/" class="social-link" target="_blank">
+                <span class="social-icon">📸</span>
+                Instagram - @sarah_jane_iffra
+            </a>
+            <a href="https://fr.tipeee.com/sarah-jane-iffra-il-est-lheure" class="social-link" target="_blank">
+                <span class="social-icon">💝</span>
+                Tipeee - Soutien
+            </a>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="soutien" class="support scroll-reveal">
+        <div class="support-container">
+            <h2 class="support-title">Soutenez une Voix Libre</h2>
+            <p class="support-description">
+                En tant que chanteuse d'alertes indépendante, votre soutien me permet de continuer à créer 
+                en toute liberté, sans contraintes commerciales. Chaque contribution compte !
+            </p>
+            
+            <div class="tipeee-widget">
+                <div class="tipeee-amount">€ 2,847</div>
+                <div class="tipeee-label">Collectés ce mois-ci</div>
+                <a href="https://fr.tipeee.com/sarah-jane-iffra-il-est-lheure" class="btn btn-primary" target="_blank">
+                    💝 Soutenir sur Tipeee
+                </a>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="color: var(--text-light); margin-bottom: 1rem;">Autres moyens de soutien :</h3>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="#contact" class="btn btn-secondary">📅 Réserver un concert</a>
+                    <a href="#services" class="btn btn-secondary">🎓 Prendre des cours</a>
+                    <a href="https://www.facebook.com/SarahJaneMusique/" class="btn btn-secondary" target="_blank">📤 Partager mes créations</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="services scroll-reveal">
+        <div class="services-container">
+            <h2 class="services-title">Contact & Réservations</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="color: var(--text-gray); font-size: 1.1rem; margin-bottom: 3rem;">
+                    Que ce soit pour un événement, des cours de chant, ou simplement échanger, 
+                    je suis à votre écoute. Réponse garantie sous 48h !
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div class="service-card">
+                        <span class="service-icon">📧</span>
+                        <h3>Email Professionnel</h3>
+                        <p>Pour bookings, collaborations et demandes de coaching vocal</p>
+                        <a href="mailto:ifrasoleil@gmail.com" class="btn btn-primary">
+                            Envoyer un email
+                        </a>
+                    </div>
+
+                    <div class="service-card">
+                        <span class="service-icon">📱</span>
+                        <h3>Réseaux Sociaux</h3>
+                        <p>Message privé sur Facebook ou Instagram pour échanges rapides</p>
+                        <a href="https://www.facebook.com/SarahJaneMusique/" class="btn btn-primary" target="_blank">
+                            Messenger
+                        </a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; padding: 2rem; background: rgba(212, 175, 55, 0.1); border-radius: 15px; border: 1px solid var(--primary-gold);">
+                    <h3 style="color: var(--primary-gold); margin-bottom: 1rem;">🎯 Infos Pratiques</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
+                        <div>
+                            <strong style="color: var(--text-light);">📍 Zone d'intervention :</strong><br>
+                            <span style="color: var(--text-gray);">Lyon, Rhône-Alpes, France entière</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--text-light);">⏰ Disponibilités :</strong><br>
+                            <span style="color: var(--text-gray);">Soirées, week-ends, événements</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--text-light);">🎤 Formules :</strong><br>
+                            <span style="color: var(--text-gray);">Solo piano-voix ou avec musiciens</span>
+                        </div>
+                        <div>
+                            <strong style="color: var(--text-light);">🎓 Cours :</strong><br>
+                            <span style="color: var(--text-gray);">Présentiel Lyon ou visio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">Sarah-Jane Iffra</div>
+            <p class="footer-text">
+                Chanteuse d'alertes • Auteure-compositrice • Coach vocal<br>
+                "Ma voix au service de l'art et de la vérité"
+            </p>
+            
+            <div class="footer-links">
+                <a href="#accueil">Accueil</a>
+                <a href="#galerie">Galerie</a>
+                <a href="#musique">Musique</a>
+                <a href="#services">Services</a>
+                <a href="#soutien">Soutien</a>
+                <a href="#contact">Contact</a>
+                <a href="mailto:ifrasoleil@gmail.com?subject=Mentions légales">Mentions légales</a>
+                <a href="mailto:ifrasoleil@gmail.com?subject=Politique de confidentialité">Politique de confidentialité</a>
+            </div>
+
+            <div class="copyright">
+                © 2025 Sarah-Jane Iffra. Tous droits réservés. | Site web optimisé pour une voix libre et authentique.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="">
+        
+        Contact technique: dev@sarahjane-iffra.fr
+        `);
+    </script>
+</body>
+</html>

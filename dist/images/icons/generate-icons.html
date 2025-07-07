@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'icônes - Sarah-Jane Iffra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #4a148c;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #4a148c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #7b1fa2;
+        }
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+        .icon-preview {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .icon-preview:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .icon-preview canvas {
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0e6ff;
+            border-radius: 8px;
+            border-right: 4px solid #7e57c2;
+        }
+        .instructions h3 {
+            color: #4a148c;
+            margin-top: 0;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #4caf50;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Générateur d'icônes PWA</h1>
+    
+    <div class="container">
+        <div class="controls">
+            <button id="previewBtn">Aperçu des icônes</button>
+            <button id="generateBtn">Générer toutes les icônes</button>
+            <button id="downloadManifestBtn">Télécharger le manifeste</button>
+        </div>
+        
+        <div id="status" class="status"></div>
+        
+        <div class="preview-container" id="previewContainer">
+            <!-- Les aperçus des icônes seront ajoutés ici -->
+        </div>
+        
+        <div class="instructions">
+            <h3>Instructions d'utilisation :</h3>
+            <ol>
+                <li>Cliquez sur <strong>Aperçu des icônes</strong> pour voir un aperçu de toutes les tailles d'icônes</li>
+                <li>Cliquez sur <strong>Générer toutes les icônes</strong> pour télécharger les fichiers d'icônes</li>
+                <li>Enregistrez chaque icône dans le dossier <code>images/icons/</code> de votre site</li>
+                <li>Cliquez sur <strong>Télécharger le manifeste</strong> pour obtenir le fichier <code>manifest.json</code> mis à jour</li>
+                <li>Remplacez le fichier <code>manifest.json</code> à la racine de votre site par le nouveau fichier</li>
+            </ol>
+            
+            <p>Assurez-vous que votre balise <code>&lt;link rel="manifest"&gt;</code> dans le <code>&lt;head&gt;</code> de votre page pointe vers le bon fichier :</p>
+            <pre><code>&lt;link rel="manifest" href="/manifest.json"&gt;</code></pre>
+        </div>
+    </div>
+    
+    <script>
+    // Tailles d'icônes à générer (en pixels)
+    const iconSizes = [72, 96, 128, 144, 152, 192, 384, 512];
+    
+    // Éléments du DOM
+    const previewBtn = document.getElementById('previewBtn');
+    const generateBtn = document.getElementById('generateBtn');
+    const downloadManifestBtn = document.getElementById('downloadManifestBtn');
+    const previewContainer = document.getElementById('previewContainer');
+    const statusDiv = document.getElementById('status');
+    
+    // Afficher un message de statut
+    function showStatus(message, isError = false) {
+        statusDiv.textContent = message;
+        statusDiv.className = `status ${isError ? 'error' : 'success'}`;
+        statusDiv.style.display = 'block';
+        
+        // Masquer le message après 5 secondes
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 5000);
+    }
+    
+    // Créer une icône de base
+    function createIcon(size) {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        
+        // Fond avec dégradé violet
+        const gradient = ctx.createLinearGradient(0, 0, size, size);
+        gradient.addColorStop(0, '#4a148c');
+        gradient.addColorStop(1, '#7b1fa2');
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, size, size);
+        
+        // Cercle décoratif pour les grandes tailles
+        if (size >= 128) {
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size * 0.4, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = Math.max(2, size * 0.01);
+            ctx.stroke();
+        }
+        
+        // Texte SJ
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // Ajuster la taille de la police en fonction de la taille de l'icône
+        const fontSize = Math.floor(size * 0.4);
+        ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+        
+        // Dessiner le texte
+        ctx.fillText('SJ', size / 2, size / 2);
+        
+        // Ajouter un petit texte supplémentaire pour les grandes icônes
+        if (size >= 192) {
+            const smallFontSize = Math.floor(size * 0.06);
+            ctx.font = `bold ${smallFontSize}px Arial, sans-serif`;
+            ctx.fillText('ARTIST', size / 2, size * 0.65);
+        }
+        
+        return canvas;
+    }
+    
+    // Télécharger une icône
+    function downloadIcon(size) {
+        try {
+            const canvas = createIcon(size);
+            const link = document.createElement('a');
+            link.download = `icon-${size}x${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            return true;
+        } catch (error) {
+            console.error(`Erreur lors de la génération de l'icône ${size}x${size}:`, error);
+            return false;
+        }
+    }
+    
+    // Générer le manifeste
+    function generateManifest() {
+        const manifest = {
+            name: 'Sarah-Jane Iffra - Artiste & Musicienne',
+            short_name: 'Sarah-Jane Iffra',
+            description: 'Découvrez l\'univers artistique de Sarah-Jane Iffra à travers ses œuvres visuelles et musicales',
+            start_url: '/?source=pwa',
+            display: 'standalone',
+            background_color: '#1a1a2e',
+            theme_color: '#4a148c',
+            categories: ['art', 'music', 'entertainment', 'education'],
+            icons: iconSizes.map(size => ({
+                src: `./images/icons/icon-${size}x${size}.png`,
+                sizes: `${size}x${size}`,
+                type: 'image/png',
+                purpose: 'any maskable'
+            })),
+            screenshots: [
+                {
+                    src: './images/screenshots/homepage-mobile.jpg',
+                    sizes: '360x640',
+                    type: 'image/jpeg',
+                    form_factor: 'narrow'
+                },
+                {
+                    src: './images/screenshots/homepage-desktop.jpg',
+                    sizes: '1920x1080',
+                    type: 'image/jpeg',
+                    form_factor: 'wide'
+                }
+            ]
+        };
+        
+        return manifest;
+    }
+    
+    // Télécharger le manifeste
+    function downloadManifest() {
+        try {
+            const manifest = generateManifest();
+            const blob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'manifest.json';
+            document.body.appendChild(a);
+            a.click();
+            
+            // Nettoyage
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+            
+            showStatus('Manifeste téléchargé avec succès !');
+            return true;
+        } catch (error) {
+            console.error('Erreur lors de la génération du manifeste:', error);
+            showStatus('Erreur lors de la génération du manifeste', true);
+            return false;
+        }
+    }
+    
+    // Afficher les aperçus des icônes
+    function showPreviews() {
+        previewContainer.innerHTML = ''; // Vider le conteneur
+        
+        iconSizes.forEach(size => {
+            const preview = document.createElement('div');
+            preview.className = 'icon-preview';
+            
+            const canvas = createIcon(size);
+            
+            // Créer un aperçu réduit pour l'affichage
+            const previewCanvas = document.createElement('canvas');
+            previewCanvas.width = 64;
+            previewCanvas.height = 64;
+            const previewCtx = previewCanvas.getContext('2d');
+            
+            // Redimensionner l'image pour l'aperçu
+            previewCtx.imageSmoothingEnabled = true;
+            previewCtx.imageSmoothingQuality = 'high';
+            previewCtx.drawImage(canvas, 0, 0, 64, 64);
+            
+            // Ajouter au DOM
+            preview.innerHTML = `
+                <div style="font-weight: bold; margin-bottom: 5px;">${size}×${size}px</div>
+                <div style="margin: 0 auto; width: 64px; height: 64px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd;">
+                    ${previewCanvas.toDataURL() ? `<img src="${previewCanvas.toDataURL()}" width="64" height="64">` : 'Aperçu non disponible'}
+                </div>
+                <div style="margin-top: 5px; font-size: 0.9em; color: #666;">icon-${size}x${size}.png</div>
+            `;
+            
+            previewContainer.appendChild(preview);
+        });
+        
+        showStatus('Aperçu des icônes généré avec succès !');
+    }
+    
+    // Générer toutes les icônes
+    function generateAllIcons() {
+        let successCount = 0;
+        
+        iconSizes.forEach((size, index) => {
+            setTimeout(() => {
+                const success = downloadIcon(size);
+                if (success) successCount++;
+                
+                // Mettre à jour le statut après la dernière icône
+                if (index === iconSizes.length - 1) {
+                    if (successCount === iconSizes.length) {
+                        showStatus(`Toutes les ${successCount} icônes ont été générées avec succès !`);
+                    } else {
+                        showStatus(`Génération terminée avec des erreurs. ${successCount} sur ${iconSizes.length} icônes générées.`, successCount < iconSizes.length);
+                    }
+                }
+            }, index * 300); // Délai entre chaque téléchargement
+        });
+    }
+    
+    // Événements
+    previewBtn.addEventListener('click', showPreviews);
+    generateBtn.addEventListener('click', generateAllIcons);
+    downloadManifestBtn.addEventListener('click', downloadManifest);
+    
+    // Afficher un message de bienvenue
+    showStatus('Prêt à générer les icônes. Cliquez sur un bouton pour commencer.');
+    </script>
+</body>
+</html>

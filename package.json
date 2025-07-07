@@ -1,24 +1,71 @@
 {
   "name": "sarah-jane-iffra-website",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "live-server .",
-    "build:css": "cleancss -o css/style.min.css css/style.css",
-    "build:js": "uglifyjs js/main.js -o js/main.min.js",
-    "deploy": "gh-pages -d .",
-    "optimize-images": "imagemin images/*.jpg --out-dir=images --plugin=mozjpeg",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "private": true,
+  "description": "Site officiel de Sarah Jane Iffra - Artiste et musicienne",
+  "keywords": [
+    "sarah jane iffra",
+    "artiste",
+    "musicienne",
+    "portfolio",
+    "gallery",
+    "youtube",
+    "firebase"
+  ],
+  "author": {
+    "name": "Sarah Jane Iffra",
+    "email": "contact@sarahjaneiffra.com",
+    "url": "https://sarahjaneiffra.com"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "live-server --port=3000 --open=\"/\" --watch=./",
+    "build": "npm run build:css && npm run build:js && npm run copy:assets",
+    "build:css": "cleancss -O1 --source-map --source-map-inline-sources -o dist/css/style.min.css css/style.css && cleancss -O1 --source-map --source-map-inline-sources -o dist/css/admin.min.css css/admin.css",
+    "build:js": "terser js/main.js -c -m --source-map -o dist/js/main.min.js && terser js/admin-auth.js -c -m --source-map -o dist/js/admin-auth.min.js",
+    "copy:assets": "ncp images dist/images && ncp assets/fonts dist/fonts && ncp index.html dist/",
+    "deploy:staging": "firebase deploy --only hosting:staging",
+    "deploy:production": "firebase deploy --only hosting:production",
+    "deploy:all": "firebase deploy",
+    "deploy:rules": "firebase deploy --only firestore:rules,firestore:indexes,storage",
+    "optimize-images": "imagemin images/**/*.{jpg,png,webp} --out-dir=images/optimized",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "format": "prettier --write \"**/*.{js,json,html,css,scss,md}\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "firebase": "^10.12.0",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^4.8.0"
+  },
   "devDependencies": {
+    "@eslint/js": "^9.29.0",
     "clean-css-cli": "^5.6.3",
-    "eslint": "^9.28.0",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "gh-pages": "^6.3.0",
+    "globals": "^16.2.0",
+    "imagemin-cli": "^8.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
     "live-server": "^1.2.2",
+    "ncp": "^2.0.0",
+    "prettier": "^3.5.3",
+    "terser": "^5.29.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.1",
     "uglify-js": "^3.19.3"
-  }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
+  ]
 }

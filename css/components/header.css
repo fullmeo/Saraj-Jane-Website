@@ -1,0 +1,278 @@
+/* ============================================
+   Header Styles
+   ============================================ */
+
+:root {
+    --header-bg: rgba(10, 10, 10, 0.9);
+    --header-text: #ffffff;
+    --header-hover: #00f5ff;
+    --header-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    --header-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mode sombre/clair natif */
+@media (prefers-color-scheme: light) {
+    :root {
+        --header-bg: rgba(255, 255, 255, 0.95);
+        --header-text: #333333;
+        --header-hover: #8b00ff;
+        --header-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-links a {
+        color: var(--header-text);
+    }
+    
+    .burger div {
+        background-color: var(--header-text);
+    }
+}
+
+/* Style de base du header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--header-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    transition: var(--header-transition);
+    box-shadow: var(--header-shadow);
+}
+
+/* Navigation principale */
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+}
+
+/* Logo */
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(90deg, #00f5ff, #8bff00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+    transition: var(--header-transition);
+    position: relative;
+    z-index: 10;
+}
+
+/* Amélioration du contraste pour l'accessibilité */
+.logo h1::after {
+    content: '';
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    top: -2px;
+    bottom: -2px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+/* Navigation links */
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2.5rem;
+    position: relative;
+}
+
+.nav-links li a {
+    color: var(--header-text);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    position: relative;
+    transition: var(--header-transition);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #00f5ff, #8bff00);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--header-hover);
+    transform: translateY(-2px);
+}
+
+.nav-links li a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Style actif pour la page courante */
+.nav-links li a.active {
+    color: var(--header-hover);
+    font-weight: 600;
+}
+
+.nav-links li a.active::before {
+    transform: scaleX(1);
+}
+
+/* Burger menu */
+.burger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+    width: 40px;
+    height: 30px;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Animation du burger */
+.burger.active .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.burger.active .line2 {
+    opacity: 0;
+}
+
+.burger.active .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Styles pour le header en mode mobile */
+@media screen and (max-width: 1024px) {
+    header {
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+    
+    .nav-links {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100vh;
+        width: 80%;
+        max-width: 320px;
+        background: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.9)), 
+                    url('../../images/hero/hero-bg.jpg') no-repeat left center;
+        background-size: cover;
+        -webkit-backdrop-filter: blur(15px) saturate(1.5);
+        backdrop-filter: blur(15px) saturate(1.5);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        padding: 5rem 2rem 2rem;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links li {
+        opacity: 0;
+        transform: translateX(30px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 0.8rem 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-links.active li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    .nav-links li:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links li:nth-child(2) { transition-delay: 0.15s; }
+    .nav-links li:nth-child(3) { transition-delay: 0.2s; }
+    .nav-links li:nth-child(4) { transition-delay: 0.25s; }
+    .nav-links li:nth-child(5) { transition-delay: 0.3s; }
+    
+    .burger {
+        display: block;
+        position: relative;
+        z-index: 1002;
+    }
+}
+
+/* Animation du header au défilement */
+header.scrolled {
+    padding: 0.5rem 2rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.75)), 
+                url('../../images/hero/hero-bg.jpg') no-repeat center 20%;
+    background-size: cover;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.5);
+    backdrop-filter: blur(10px) saturate(1.5);
+}
+
+/* Animation de transition fluide pour les ancres */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Amélioration du focus pour l'accessibilité */
+.nav-links a:focus-visible {
+    outline: 2px solid var(--header-hover);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Amélioration de l'affichage sur les appareils tactiles */
+@media (hover: none) {
+    .nav-links a:active {
+        transform: scale(0.95);
+    }
+}
+
+header.scroll-down {
+    transform: translateY(-100%);
+}
+
+header.scroll-up {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}

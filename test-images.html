@@ -1,0 +1,10 @@
+        ];
+        const list = document.getElementById('imageList');
+        images.forEach(img => {
+            const li = document.createElement('li');
+            li.innerHTML = img + ' <img src="images/gallery/' + img + '" style="max-width:100px;">';
+            list.appendChild(li);
+        });
+    </script>
+</body>
+</html>

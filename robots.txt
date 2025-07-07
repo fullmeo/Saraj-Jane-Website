@@ -1,0 +1,72 @@
+# Robots.txt optimisé pour Sarah-Jane Iffra
+# https://sarah-jane-iffra.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Autoriser l'indexation des pages principales
+Allow: /pages/
+Allow: /images/gallery/
+Allow: /css/
+Allow: /js/
+
+# Bloquer les fichiers techniques et admin
+Disallow: /admin/
+Disallow: /_private/
+Disallow: /_archive/
+Disallow: /node_modules/
+Disallow: /config/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+Disallow: /*.log$
+Disallow: /*.md$
+
+# Bloquer les fichiers de développement
+Disallow: /*.backup$
+Disallow: /*.tmp$
+Disallow: /*.temp$
+
+# Autoriser les ressources importantes
+Allow: /manifest.json
+Allow: /sitemap.xml
+Allow: /favicon.ico
+Allow: /browserconfig.xml
+
+# Sitemap
+Sitemap: https://sarah-jane-iffra.com/sitemap.xml
+
+# Crawl-delay pour éviter de surcharger le serveur
+Crawl-delay: 1
+
+# Règles spécifiques pour les moteurs de recherche
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Bloquer les bots malveillants
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Permettre l'indexation des images pour Google Images
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /images/gallery/
+Allow: /images/icons/

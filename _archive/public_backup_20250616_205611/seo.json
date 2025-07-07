@@ -1,0 +1,69 @@
+{
+  "title": "Sarah Jane Iffra - Artiste & Musicienne",
+  "description": "Découvrez l'univers artistique de Sarah Jane Iffra à travers ses œuvres visuelles et musicales. Concerts, expositions et actualités.",
+  "keywords": "sarah jane iffra, artiste, musicienne, concerts, expositions, musique, art, performances",
+  "author": "Sarah Jane Iffra",
+  "themeColor": "#4a148c",
+  "og": {
+    "type": "website",
+    "siteName": "Sarah Jane Iffra",
+    "image": "/images/og-image.jpg",
+    "imageWidth": "1200",
+    "imageHeight": "630",
+    "imageAlt": "Sarah Jane Iffra - Artiste & Musicienne"
+  },
+  "twitter": {
+    "card": "summary_large_image",
+    "site": "@sarahjaneiffra",
+    "creator": "@sarahjaneiffra"
+  },
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/images/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "socialLinks": [
+    {
+      "platform": "youtube",
+      "url": "https://youtube.com/@sarahjaneiffra"
+    },
+    {
+      "platform": "instagram",
+      "url": "https://instagram.com/sarahjaneiffra"
+    },
+    {
+      "platform": "facebook",
+      "url": "https://facebook.com/sarahjaneiffra"
+    },
+    {
+      "platform": "twitter",
+      "url": "https://twitter.com/sarahjaneiffra"
+    },
+    {
+      "platform": "spotify",
+      "url": "https://open.spotify.com/artist/..."
+    }
+  ],
+  "contact": {
+    "email": "contact@sarahjaneiffra.com",
+    "bookingEmail": "booking@sarahjaneiffra.com",
+    "phone": "+33 6 12 34 56 78"
+  },
+  "legal": {
+    "privacyPolicy": "/privacy-policy",
+    "termsOfService": "/terms-of-service",
+    "copyright": "© 2025 Sarah Jane Iffra. Tous droits réservés."
+  }
+}

@@ -1,0 +1,51 @@
+# Fichier robots.txt pour le site de Sarah Jane Iffra
+# Dernière mise à jour : 2025-06-01
+
+User-agent: *
+Allow: /
+
+# Désactiver l'indexation des dossiers d'administration et des fichiers techniques
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://sarahjaneiffra.com/sitemap.xml
+
+# Configuration pour les moteurs de recherche spécifiques
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 10
+
+# Bing
+User-agent: bingbot
+Allow: /
+Crawl-delay: 10
+
+# Configuration pour les robots d'archivage (Wayback Machine, etc.)
+User-agent: archive.org_bot
+Disallow: /
+
+# Configuration pour les robots de réseaux sociaux
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Blocage des robots indésirables
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Paramètres de fréquence de crawl (en secondes)
+# 86400 secondes = 24 heures
+Crawl-delay: 86400
