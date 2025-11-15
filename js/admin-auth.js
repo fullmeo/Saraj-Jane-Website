@@ -85,14 +85,15 @@ document.addEventListener('DOMContentLoaded', function() {
     async function signInWithGoogle() {
         try {
             const result = await auth.signInWithPopup(provider);
-            // Vérifier si l'email est autorisé
-            const allowedEmails = ['ifrasoleil.@gmail.com'];
-            if (allowedEmails.length > 0 && !allowedEmails.includes(result.user.email)) {
+
+            // Vérifier si l'utilisateur a le claim admin
+            const tokenResult = await result.user.getIdTokenResult();
+            if (!tokenResult.claims.admin) {
                 await auth.signOut();
-                showMessage(messageEl, "Accès non autorisé avec cet email.", 'error');
+                showMessage(messageEl, "Accès non autorisé. Seuls les administrateurs peuvent accéder à cette zone.", 'error');
                 return;
             }
-            
+
             // Rediriger vers le tableau de bord après connexion réussie
             window.location.href = 'dashboard.html';
         } catch (error) {
@@ -104,24 +105,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction de connexion avec email/mot de passe
     async function handleEmailPasswordLogin(e) {
         e.preventDefault();
-        
+
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        
+
         try {
-            await auth.signInWithEmailAndPassword(email, password);
+            const result = await auth.signInWithEmailAndPassword(email, password);
+
+            // Vérifier si l'utilisateur a le claim admin
+            const tokenResult = await result.user.getIdTokenResult();
+            if (!tokenResult.claims.admin) {
+                await auth.signOut();
+                showMessage(messageEl, "Accès non autorisé. Seuls les administrateurs peuvent accéder à cette zone.", 'error');
+                return;
+            }
+
             // Rediriger vers le tableau de bord après connexion réussie
             window.location.href = 'dashboard.html';
         } catch (error) {
             console.error('Erreur de connexion:', error);
             let errorMessage = "Échec de la connexion. Veuillez vérifier vos identifiants.";
-            
+
             if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
                 errorMessage = "Email ou mot de passe incorrect.";
             } else if (error.code === 'auth/too-many-requests') {
                 errorMessage = "Trop de tentatives échouées. Veuillez réessayer plus tard.";
             }
-            
+
             showMessage(messageEl, errorMessage, 'error');
         }
     }
@@ -153,59 +163,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Vérifier le statut d'authentification
-function checkAuthStatus() {
-    const isLoggedIn = localStorage.getItem('adminAuthenticated') === 'true';
-    const isLoginPage = window.location.pathname.includes('login.html');
-    const isAdminPage = window.location.pathname.includes('admin/');
-    
-    if (isLoggedIn && isLoginPage) {
-        // Rediriger vers le tableau de bord si déjà connecté
-        window.location.href = 'dashboard.html';
-    } else if (!isLoggedIn && isAdminPage && !isLoginPage) {
-        // Rediriger vers la page de connexion si non connecté
-        window.location.href = 'login.html';
-    } else if (isLoggedIn && isAdminPage) {
-        // Afficher le tableau de bord
-        document.body.classList.add('admin-dashboard');
-    }
-}
+// ⚠️ Les fonctions ci-dessous ont été RETIRÉES pour des raisons de sécurité
+// ⚠️ Utilisez uniquement Firebase Authentication (fonctions au-dessus)
+// ⚠️ NE PAS utiliser localStorage pour l'authentification - c'est une faille de sécurité
 
-// Gérer la connexion
-function handleLogin(e) {
-    e.preventDefault();
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const messageEl = document.getElementById('loginMessage');
-    
-    // Ici, vous devriez remplacer cela par une vérification côté serveur sécurisée
-    // Ceci est une solution temporaire pour la démonstration
-    if (username === 'admin' && password === 'admin123') {
-        // Enregistrer l'état de connexion (dans un environnement de production, utilisez des jetons JWT ou des sessions sécurisées)
-        localStorage.setItem('adminAuthenticated', 'true');
-        
-        // Afficher un message de succès
-        showMessage(messageEl, 'Connexion réussie ! Redirection en cours...', 'success');
-        
-        // Rediriger vers le tableau de bord après un court délai
-        setTimeout(() => {
-            window.location.href = 'dashboard.html';
-        }, 1500);
-    } else {
-        // Afficher un message d'erreur
-        showMessage(messageEl, 'Identifiants incorrects. Veuillez réessayer.', 'error');
-    }
-}
-
-// Gérer la déconnexion
-function handleLogout() {
-    // Supprimer l'état de connexion
-    localStorage.removeItem('adminAuthenticated');
-    
-    // Rediriger vers la page de connexion
-    window.location.href = 'login.html';
-}
+// Pour configurer un utilisateur admin, utilisez Firebase Admin SDK ou la console Firebase :
+// firebase.auth().currentUser.getIdToken().then(token => {
+//   // Envoyez ce token à votre Cloud Function pour définir le custom claim 'admin'
+// });
 
 // Afficher un message
 function showMessage(element, message, type) {
