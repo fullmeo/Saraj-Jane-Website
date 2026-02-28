@@ -23,7 +23,7 @@
     "build": "npm run build:css && npm run build:js && npm run copy:assets",
     "build:css": "cleancss -O1 --source-map --source-map-inline-sources -o dist/css/style.min.css css/style.css && cleancss -O1 --source-map --source-map-inline-sources -o dist/css/admin.min.css css/admin.css",
     "build:js": "terser js/main.js -c -m --source-map -o dist/js/main.min.js && terser js/admin-auth.js -c -m --source-map -o dist/js/admin-auth.min.js",
-    "copy:assets": "ncp images dist/images && ncp assets/fonts dist/fonts && cp index.html dist/index.html",
+    "copy:assets": "ncp images dist/images && ncp assets/fonts dist/fonts && cp index.html dist/index.html && cp sitemap.xml dist/sitemap.xml && cp robots.txt dist/robots.txt && cp manifest.json dist/manifest.json && cp sw.js dist/sw.js && cp offline.html dist/offline.html && cp favicon.ico dist/favicon.ico",
     "deploy:staging": "firebase deploy --only hosting:staging",
     "deploy:production": "firebase deploy --only hosting:production",
     "deploy:all": "firebase deploy",
