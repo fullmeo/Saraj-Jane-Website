@@ -1,5 +1,5 @@
 # Robots.txt optimisé pour Sarah-Jane Iffra
-# https://sarah-jane-iffra.com/robots.txt
+# https://sarah-jane-iffra.netlify.app/robots.txt
 
 User-agent: *
 Allow: /
@@ -34,7 +34,7 @@ Allow: /favicon.ico
 Allow: /browserconfig.xml
 
 # Sitemap
-Sitemap: https://sarah-jane-iffra.com/sitemap.xml
+Sitemap: https://sarah-jane-iffra.netlify.app/sitemap.xml
 
 # Crawl-delay pour éviter de surcharger le serveur
 Crawl-delay: 1
