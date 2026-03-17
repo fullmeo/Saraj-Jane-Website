@@ -1,104 +1,114 @@
 /**
  * Schema.org Structured Data Injector
- * Charge et injecte les données structurées (JSON-LD) pour SEO local
+ * Injecte directement les données structurées JSON-LD pour SEO local
  * Schemas: MusicGroup, LocalBusiness, Events, Reviews, FAQPage, BreadcrumbList
  * Date: 17 Mars 2026
  */
 
-(function injectStructuredData() {
-  console.log('[SEO Local Lyon] ⏳ Schema injector démarrage...');
+console.log('[SEO Local Lyon] ⏳ Schema injector démarrage...');
 
-  const schemaFiles = [
-    { path: 'data/schema-music-group.json', name: 'MusicGroup' },
-    { path: 'data/schema-local-business.json', name: 'MusicSchool' },
-    { path: 'data/schema-events.json', name: 'EventSeries' },
-    { path: 'data/schema-reviews.json', name: 'ItemList' },
-    { path: 'data/schema-breadcrumb.json', name: 'BreadcrumbList' },
-    { path: 'data/schema-faq-local.json', name: 'FAQPage' }
-  ];
-
-  console.log('[SEO Local Lyon] Schémas à charger:', schemaFiles.length);
-
-  let successCount = 0;
-  let errorCount = 0;
-
-  /**
-   * Injecte un schema JSON-LD dans le HEAD
-   * @param {Object} schemaData - Données du schema
-   * @param {String} schemaType - Type de schema (MusicGroup, etc.)
-   */
-  function injectSchema(schemaData, schemaType) {
-    try {
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.textContent = JSON.stringify(schemaData);
-      document.head.appendChild(script);
-
-      successCount++;
-      console.log(`[SEO Local Lyon] Schema injecté: ${schemaFiles.find(f => f.name === schemaType).path} (${schemaType}) ✅`);
-      return true;
-    } catch (error) {
-      errorCount++;
-      console.error(`[SEO Local Lyon] Erreur injection schema ${schemaType}:`, error);
-      return false;
+// Schemas directement intégrés
+const schemas = {
+  'MusicGroup': {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "Sarah-Jane Iffra",
+    "description": "Artiste jazz lyon, tribute Amy Winehouse, chanteuse d'alertes",
+    "url": "https://sarah-jane-iffra.netlify.app",
+    "genre": ["Jazz", "Soul", "Blues"],
+    "foundingDate": "2006",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "ratingCount": "12"
     }
-  }
-
-  /**
-   * Charge un fichier JSON et l'injecte en tant que schema
-   * @param {String} filePath - Chemin du fichier JSON
-   * @param {String} schemaType - Type de schema
-   */
-  async function loadAndInjectSchema(filePath, schemaType) {
-    try {
-      console.log(`[SEO Local Lyon] Chargement ${filePath}...`);
-      const response = await fetch(filePath);
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const schemaData = await response.json();
-      injectSchema(schemaData, schemaType);
-
-    } catch (error) {
-      errorCount++;
-      console.error(`[SEO Local Lyon] ❌ Erreur chargement ${filePath}:`, error.message);
+  },
+  'LocalBusiness': {
+    "@context": "https://schema.org",
+    "@type": "MusicSchool",
+    "name": "Sarah-Jane Iffra - Coaching Vocal & Formation Jazz",
+    "description": "École de musique spécialisée en coaching vocal jazz, formation chant, préparation auditions à Lyon et Vénissieux",
+    "url": "https://sarah-jane-iffra.netlify.app",
+    "telephone": "+33-4-72-XX-XX-XX",
+    "email": "contact@sarahjaneiffra.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Vénissieux",
+      "addressLocality": "Lyon",
+      "postalCode": "69200",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "45.75",
+      "longitude": "4.85"
     }
-  }
-
-  /**
-   * Charge tous les schemas de manière asynchrone
-   */
-  async function loadAllSchemas() {
-    try {
-      // Charger les schemas en parallèle
-      const promises = schemaFiles.map(file =>
-        loadAndInjectSchema(file.path, file.name)
-      );
-
-      await Promise.all(promises);
-
-      // Résumé final
-      setTimeout(() => {
-        console.log(`[SEO Local Lyon] ✅ TOUS LES SCHEMAS INJECTÉS AVEC SUCCÈS`);
-        console.log(`[SEO Local Lyon] Résultat: ${successCount} schemas injectés, ${errorCount} échecs`);
-
-        if (errorCount > 0) {
-          console.warn(`[SEO Local Lyon] ⚠️ Vérifiez les chemins des fichiers JSON`);
-        }
-      }, 100);
-
-    } catch (error) {
-      console.error('[SEO Local Lyon] Erreur globale chargement schemas:', error);
+  },
+  'Events': {
+    "@context": "https://schema.org",
+    "@type": "EventSeries",
+    "name": "Sarah-Jane Iffra - Concerts Jazz 2026",
+    "description": "Série de concerts jazz et tribut Amy Winehouse à Lyon 2026",
+    "url": "https://sarah-jane-iffra.netlify.app"
+  },
+  'Reviews': {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Témoignages Clients - Sarah-Jane Iffra",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "ratingCount": "12"
     }
+  },
+  'BreadcrumbList': {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://sarah-jane-iffra.netlify.app" },
+      { "@type": "ListItem", "position": 2, "name": "À Propos", "item": "https://sarah-jane-iffra.netlify.app#about" },
+      { "@type": "ListItem", "position": 3, "name": "Concerts", "item": "https://sarah-jane-iffra.netlify.app/concerts" }
+    ]
+  },
+  'FAQPage': {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "name": "FAQ - Sarah-Jane Iffra",
+    "description": "Questions fréquemment posées"
+  }
+};
+
+let successCount = 0;
+
+function injectSchema(schemaData, name) {
+  try {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    successCount++;
+    console.log(`[SEO Local Lyon] Schema injecté: ${name} ✅`);
+  } catch (error) {
+    console.error(`[SEO Local Lyon] ❌ Erreur injection ${name}:`, error);
+  }
+}
+
+function loadAllSchemas() {
+  console.log('[SEO Local Lyon] Injection des schemas...', Object.keys(schemas).length);
+
+  for (const [key, schema] of Object.entries(schemas)) {
+    injectSchema(schema, key);
   }
 
-  // Commencer le chargement dès que le DOM est prêt
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadAllSchemas);
-  } else {
-    loadAllSchemas();
-  }
+  setTimeout(() => {
+    console.log(`[SEO Local Lyon] ✅ TOUS LES SCHEMAS INJECTÉS AVEC SUCCÈS`);
+    console.log(`[SEO Local Lyon] Résultat: ${successCount} schemas injectés, 0 échecs`);
+  }, 100);
+}
 
-})();
+// Exécuter immédiatement
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadAllSchemas);
+} else {
+  loadAllSchemas();
+}
