@@ -6,6 +6,8 @@
  */
 
 (function injectStructuredData() {
+  console.log('[SEO Local Lyon] ⏳ Schema injector démarrage...');
+
   const schemaFiles = [
     { path: 'data/schema-music-group.json', name: 'MusicGroup' },
     { path: 'data/schema-local-business.json', name: 'MusicSchool' },
@@ -14,6 +16,8 @@
     { path: 'data/schema-breadcrumb.json', name: 'BreadcrumbList' },
     { path: 'data/schema-faq-local.json', name: 'FAQPage' }
   ];
+
+  console.log('[SEO Local Lyon] Schémas à charger:', schemaFiles.length);
 
   let successCount = 0;
   let errorCount = 0;
@@ -47,6 +51,7 @@
    */
   async function loadAndInjectSchema(filePath, schemaType) {
     try {
+      console.log(`[SEO Local Lyon] Chargement ${filePath}...`);
       const response = await fetch(filePath);
 
       if (!response.ok) {
@@ -58,7 +63,7 @@
 
     } catch (error) {
       errorCount++;
-      console.error(`[SEO Local Lyon] Erreur chargement ${filePath}:`, error);
+      console.error(`[SEO Local Lyon] ❌ Erreur chargement ${filePath}:`, error.message);
     }
   }
 
