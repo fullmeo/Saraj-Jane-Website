@@ -103,7 +103,7 @@ Google envoie **une lettre de vérification** à l'adresse enregistrée.
 
 ```
 Coaching vocal professionnel et formation jazz à Lyon.
-Sarah-Jane Iffra: 40+ ans d'expérience en performance musicale.
+Sarah-Jane Iffra: 10 ans d'expérience en performance musicale.
 Spécialisée en:
 - Coaching vocal jazz et soul
 - Masterclass interprétation

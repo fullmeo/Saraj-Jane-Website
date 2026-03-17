@@ -11,7 +11,7 @@
     const siteConfig = {
       locale: 'fr_FR',
       title: 'Sarah-Jane Iffra - Chanteuse Jazz & Coach Vocal Lyon',
-      description: 'Artiste jazz Lyon, coach vocal, tribute Amy Winehouse. 40+ ans expérience. Cours de chant, masterclass, prestations événements. Vénissieux, Lyon.',
+      description: 'Artiste jazz Lyon, coach vocal, tribute Amy Winehouse. 10 ans expérience. Cours de chant, masterclass, prestations événements. Vénissieux, Lyon.',
       url: 'https://sarah-jane-iffra.netlify.app',
       image: 'https://sarah-jane-iffra.netlify.app/images/sarah-jane-hero.jpg',
       keywords: 'chanteuse jazz Lyon, coaching vocal Lyon, cours de chant Lyon, tribute Amy Winehouse, coach vocal Vénissieux'
