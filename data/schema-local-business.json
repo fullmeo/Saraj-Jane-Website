@@ -1,0 +1,80 @@
+{
+  "@context": "https://schema.org",
+  "@type": "MusicSchool",
+  "name": "Sarah-Jane Iffra - Coaching Vocal & Formation Jazz",
+  "description": "École de musique spécialisée en coaching vocal jazz, formation chant, préparation auditions à Lyon et Vénissieux",
+  "url": "https://sarah-jane-iffra.netlify.app",
+  "image": "https://sarah-jane-iffra.netlify.app/images/studio-lyon.jpg",
+  "telephone": "+33-4-72-XX-XX-XX",
+  "email": "contact@sarahjaneiffra.com",
+  "priceRange": "€€",
+  "areaServed": {
+    "@type": "City",
+    "name": "Lyon",
+    "containedIn": {
+      "@type": "State",
+      "name": "Rhône-Alpes"
+    }
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Vénissieux",
+    "addressLocality": "Lyon",
+    "addressRegion": "Rhône-Alpes",
+    "postalCode": "69200",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "45.75",
+    "longitude": "4.85"
+  },
+  "serviceRadius": "30",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "ratingCount": "12",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "09:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "10:00",
+      "closes": "18:00"
+    }
+  ],
+  "availableService": [
+    {
+      "@type": "Service",
+      "name": "Coaching Vocal Jazz",
+      "description": "Accompagnement personnalisé jazz et soul"
+    },
+    {
+      "@type": "Service",
+      "name": "Masterclass Vocal",
+      "description": "Technique vocale avancée et interprétation"
+    },
+    {
+      "@type": "Service",
+      "name": "Préparation Auditions",
+      "description": "Préparation conservatoire et auditions professionnelles"
+    },
+    {
+      "@type": "Service",
+      "name": "Prestations Événements",
+      "description": "Spectacles mariage, corporate, événements"
+    }
+  ],
+  "sameAs": [
+    "https://www.youtube.com/@sarahjaneiffra",
+    "https://soundcloud.com/sarah-jane-46822397"
+  ]
+}

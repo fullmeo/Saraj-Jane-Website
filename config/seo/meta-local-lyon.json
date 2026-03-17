@@ -1,0 +1,88 @@
+{
+  "locale": "fr_FR",
+  "site": {
+    "name": "Sarah-Jane Iffra - Chanteuse Jazz & Coach Vocal Lyon",
+    "description": "Artiste jazz Lyon, coach vocal, tribute Amy Winehouse. 40+ ans expérience. Cours de chant, masterclass, prestations événements. Vénissieux, Lyon.",
+    "url": "https://sarah-jane-iffra.netlify.app",
+    "image": "https://sarah-jane-iffra.netlify.app/images/sarah-jane-hero.jpg",
+    "keywords": "chanteuse jazz Lyon, coaching vocal Lyon, cours de chant Lyon, tribute Amy Winehouse, coach vocal Vénissieux, spectacle jazz, concerts Lyon 2026, artiste soul, chanteuse d'alertes, formation chant jazz"
+  },
+  "geo": {
+    "region": "Rhône-Alpes",
+    "placename": "Lyon, Vénissieux, France",
+    "latitude": "45.75",
+    "longitude": "4.85",
+    "icbm": "45.75, 4.85"
+  },
+  "localization": {
+    "cities": [
+      "Lyon",
+      "Vénissieux",
+      "Villeurbanne",
+      "Caluire-et-Cuire",
+      "Bron"
+    ],
+    "radius_km": 30,
+    "service_area": "Rhône-Alpes, France"
+  },
+  "keywords": {
+    "primary": [
+      "chanteuse jazz Lyon",
+      "coaching vocal Lyon",
+      "cours de chant Lyon",
+      "tribute Amy Winehouse Lyon",
+      "artiste soul Lyon"
+    ],
+    "secondary": [
+      "coach vocal Vénissieux",
+      "spectacle jazz Lyon",
+      "concerts Lyon 2026",
+      "chanteuse d'alertes",
+      "formation chant jazz Lyon"
+    ],
+    "longtail": [
+      "meilleur coach vocal jazz Lyon",
+      "cours de chant jazz pour débutants Lyon",
+      "préparation audition conservatoire Lyon",
+      "tribute Amy Winehouse concert Lyon",
+      "chanteuse jazz mariage Lyon",
+      "spectacle jazz corporatif Vénissieux"
+    ]
+  },
+  "openingHours": {
+    "monday": "09:00-20:00",
+    "tuesday": "09:00-20:00",
+    "wednesday": "09:00-20:00",
+    "thursday": "09:00-20:00",
+    "friday": "09:00-20:00",
+    "saturday": "09:00-20:00",
+    "sunday": "10:00-18:00",
+    "note": "Prise de rendez-vous sur demande"
+  },
+  "contact": {
+    "email": "contact@sarahjaneiffra.com",
+    "phone": "+33-4-72-XX-XX-XX",
+    "address": "Vénissieux, 69200 Lyon, France"
+  },
+  "social": {
+    "youtube": "https://www.youtube.com/@sarahjaneiffra",
+    "soundcloud": "https://soundcloud.com/sarah-jane-46822397",
+    "tipeee": "https://fr.tipeee.com/sarah-jane-iffra-il-est-lheure"
+  },
+  "rating": {
+    "value": "5.0",
+    "count": "12",
+    "best": "5",
+    "worst": "1"
+  },
+  "metaTags": {
+    "og:title": "Sarah-Jane Iffra - Chanteuse Jazz & Coach Vocal Lyon",
+    "og:description": "Artiste jazz professionnelle à Lyon. Coaching vocal, cours de chant, tribute Amy Winehouse, prestations événements.",
+    "og:image": "https://sarah-jane-iffra.netlify.app/images/sarah-jane-hero.jpg",
+    "og:url": "https://sarah-jane-iffra.netlify.app",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "Sarah-Jane Iffra - Chanteuse Jazz Lyon",
+    "twitter:description": "Chanteuse jazz professionnelle, coach vocal, tribute Amy Winehouse. Lyon.",
+    "twitter:image": "https://sarah-jane-iffra.netlify.app/images/sarah-jane-hero.jpg"
+  }
+}

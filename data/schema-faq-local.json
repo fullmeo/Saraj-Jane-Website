@@ -1,0 +1,102 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quels sont les tarifs du coaching vocal à Lyon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les tarifs du coaching vocal varient entre 50€ et 100€ par séance selon la durée. Forfaits disponibles pour 5 ou 10 séances avec réductions. Contactez-nous pour devis personnalisé."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sarah-Jane Iffra propose-t-elle des cours à Vénissieux?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui! Sarah-Jane propose des cours de chant et coaching vocal à Vénissieux et Lyon. Zone de service: 30km autour de Lyon. Rendez-vous sur demande."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment réserver une séance de coaching?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Contactez-nous via le formulaire de contact ou appelez au +33-4-72-XX-XX-XX. Les séances se font en présentiel à Lyon/Vénissieux ou en ligne."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle expérience a Sarah-Jane Iffra?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sarah-Jane a 40+ ans d'expérience en performance musicale. Chanteuse professionnelle spécialisée en jazz, soul et tribute Amy Winehouse. 19.3K abonnés YouTube."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Propose-t-elle des prestations pour événements à Lyon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui! Sarah-Jane propose prestations mariage, événements corporate, galas à Lyon et région. Spectacles jazz, tribut Amy Winehouse, et chansons d'alertes. Demande de devis sur demande."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Existe-t-il des masterclass?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui! Masterclass vocale jazz régulière. Technique vocale avancée, interprétation, présence scénique. Tarif: 45€. Dates: voir agenda."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sarah-Jane Iffra prépare-t-elle les auditions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui! Coaching spécialisé préparation conservatoire, auditions professionnelles. Accompagnement technique et psychologique. Résultats probants pour étudiants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels styles musicaux enseigne-t-elle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jazz, soul, blues, pop, et interprétation classique. Spécialité: technique vocale jazz. Adaptée tous niveaux: débutants à avancés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où trouver les vidéos de Sarah-Jane Iffra?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "YouTube: @sarahjaneiffra (19.3K abonnés). SoundCloud: sarah-jane-46822397. Musiques tribut Amy Winehouse et chansons d'alertes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Y a-t-il des concerts prévus en 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui! Tribute Amy Winehouse concert 15 mai 2026. Masterclass 20 juin 2026. Plus d'événements à venir. Suivez l'agenda pour mises à jour."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment soutenir Sarah-Jane Iffra?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Abonnez-vous YouTube, likez les vidéos, partagez les contenus. Soutenez sur Tipeee: https://fr.tipeee.com/sarah-jane-iffra-il-est-lheure"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la note de Sarah-Jane Iffra?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Note moyenne: 5.0/5 basée sur 12 avis vérifiés de clients satisfaits. Témoignages coaching vocal, concerts, et prestations événements."
+      }
+    }
+  ]
+}
