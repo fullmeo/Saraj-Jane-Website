@@ -6,29 +6,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const showEmailLoginBtn = document.getElementById('showEmailLogin');
     const togglePassword = document.querySelector('.toggle-password');
     const messageEl = document.getElementById('loginMessage');
-    
+    const loginSection = document.getElementById('loginSection');
+    const dashboardSection = document.getElementById('dashboardSection');
+
     // Initialiser Firebase Auth
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
-    
+
     // Vérifier l'état d'authentification
     auth.onAuthStateChanged((user) => {
         if (user) {
-            // Utilisateur connecté
-            if (window.location.pathname.includes('login.html') || 
-                window.location.pathname.endsWith('admin/') ||
-                window.location.pathname.endsWith('admin')) {
-                // Rediriger vers le tableau de bord si déjà connecté
-                window.location.href = 'dashboard.html';
-            }
+            // Utilisateur connecté - vérifier les droits admin
+            user.getIdTokenResult().then((idTokenResult) => {
+                if (idTokenResult.claims.admin) {
+                    // Admin - afficher le dashboard
+                    if (loginSection) loginSection.style.display = 'none';
+                    if (dashboardSection) dashboardSection.style.display = 'block';
+                    console.log('✅ Admin connecté:', user.email);
+                } else {
+                    // Pas d'admin - déconnecter et afficher login
+                    auth.signOut().then(() => {
+                        if (loginSection) loginSection.style.display = 'block';
+                        if (dashboardSection) dashboardSection.style.display = 'none';
+                        if (messageEl) {
+                            messageEl.textContent = '⛔ Droits admin manquants';
+                            messageEl.className = 'message error';
+                            messageEl.style.display = 'block';
+                        }
+                    });
+                }
+            }).catch(error => {
+                console.error('Erreur vérification droits:', error);
+                if (messageEl) {
+                    messageEl.textContent = 'Erreur d\'authentification';
+                    messageEl.className = 'message error';
+                    messageEl.style.display = 'block';
+                }
+            });
         } else {
-            // Utilisateur non connecté
-            if (!window.location.pathname.includes('login.html') &&
-                !window.location.pathname.endsWith('admin/') &&
-                !window.location.pathname.endsWith('admin')) {
-                // Rediriger vers la page de connexion si non connecté
-                window.location.href = '/admin/';
-            }
+            // Utilisateur non connecté - afficher la page de login
+            if (loginSection) loginSection.style.display = 'block';
+            if (dashboardSection) dashboardSection.style.display = 'none';
         }
     });
     
@@ -86,16 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const result = await auth.signInWithPopup(provider);
 
-            // Vérifier si l'utilisateur a le claim admin
+            // Vérifier si l'utilisateur a le claim admin et l'email autorisé
             const tokenResult = await result.user.getIdTokenResult();
+            const authorizedEmails = ['ifrasoleil@gmail.com', 'serignetrumpet@gmail.com'];
+
             if (!tokenResult.claims.admin) {
                 await auth.signOut();
-                showMessage(messageEl, "Accès non autorisé. Seuls les administrateurs peuvent accéder à cette zone.", 'error');
+                showMessage(messageEl, "⛔ Droits admin manquants - Accès refusé.", 'error');
                 return;
             }
 
-            // Rediriger vers le tableau de bord après connexion réussie
-            window.location.href = 'dashboard.html';
+            if (!authorizedEmails.includes(result.user.email)) {
+                await auth.signOut();
+                showMessage(messageEl, "⛔ Email non autorisé - Accès refusé.", 'error');
+                return;
+            }
+
+            // Connexion réussie - afficher le dashboard
+            if (loginSection) loginSection.style.display = 'none';
+            if (dashboardSection) dashboardSection.style.display = 'block';
+            showMessage(messageEl, "✅ Connexion réussie!", 'success');
         } catch (error) {
             console.error('Erreur de connexion avec Google:', error);
             showMessage(messageEl, "Échec de la connexion avec Google. Veuillez réessayer.", 'error');
@@ -136,16 +164,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Fonction de déconnexion
-    async function handleLogout() {
+    // Fonction de déconnexion (accessible globalement)
+    window.handleLogout = async function() {
         try {
             await auth.signOut();
-            window.location.href = '/admin/';
+            // Afficher la section login après déconnexion
+            if (loginSection) loginSection.style.display = 'block';
+            if (dashboardSection) dashboardSection.style.display = 'none';
+            // Réinitialiser le formulaire
+            if (loginForm) loginForm.reset();
+            showMessage(messageEl, "✅ Déconnecté avec succès", 'success');
         } catch (error) {
             console.error('Erreur lors de la déconnexion:', error);
             showMessage(messageEl, "Une erreur est survenue lors de la déconnexion.", 'error');
         }
-    }
+    };
     
     // Fonction utilitaire pour afficher des messages
     function showMessage(element, message, type) {
