@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Galerie - Admin Sarah-Jane Iffra</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <style>
+        .admin-dashboard {
+            min-height: 100vh;
+            background-color: var(--bg-color);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 0;
+        }
+
+        .sidebar {
+            background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin: 0;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left-color: #D4AF37;
+        }
+
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-left-color: #D4AF37;
+            font-weight: 600;
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .dashboard-title h1 {
+            font-size: 1.8rem;
+            color: #4a148c;
+            margin-bottom: 0.3rem;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-container h3 {
+            color: #4a148c;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            padding: 0.75rem 2rem;
+            background-color: #4a148c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #6a1ba2;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            padding: 0.5rem 1rem;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+        }
+
+        .gallery-item-info {
+            padding: 1rem;
+        }
+
+        .gallery-item-title {
+            color: #4a148c;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gallery-item-date {
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .gallery-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .gallery-item-actions button {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: #0056b3;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            color: #D4AF37;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                height: auto;
+                padding: 1rem 0;
+                position: static;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .sidebar-menu li {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .sidebar-menu a {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login" id="loginSection">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2><i class="fas fa-lock"></i> Connexion Admin</h2>
+                    <p>Accédez au panneau d'administration</p>
+                </div>
+
+                <div class="social-login">
+                    <button id="googleSignIn" class="btn-google">
+                        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google">
+                        Se connecter avec Google
+                    </button>
+                    <button id="showEmailLogin" class="btn-outline">
+                        <i class="fas fa-envelope"></i> Connexion par email
+                    </button>
+                </div>
+
+                <form id="loginForm" style="display: none;">
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Mot de passe" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </button>
+                </form>
+
+                <div id="loginMessage" class="message" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-dashboard" id="dashboardSection" style="display: none;">
+        <div class="dashboard-grid">
+            <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+                    <li><a href="content.html"><i class="fas fa-file-alt"></i> Contenu</a></li>
+                    <li><a href="youtube-stats.html"><i class="fab fa-youtube"></i> Stats YouTube</a></li>
+                    <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Galerie</a></li>
+                    <li><a href="playlist.html"><i class="fas fa-music"></i> Playlist</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1><i class="fas fa-images"></i> Gestion Galerie</h1>
+                        <p>Organisez vos photos</p>
+                    </div>
+                    <button class="logout-btn" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </button>
+                </div>
+
+                <div class="form-container">
+                    <h3><i class="fas fa-plus"></i> Ajouter une Photo</h3>
+
+                    <form id="galleryForm">
+                        <div class="form-group">
+                            <label for="galleryTitle">Titre de la photo</label>
+                            <input type="text" id="galleryTitle" placeholder="Ex: Sarah-Jane en concert" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="galleryFile">📸 Uploader une image</label>
+                            <input type="file" id="galleryFile" accept="image/*" required>
+                            <div style="font-size: 0.8rem; color: #7f8c8d; margin-top: 0.3rem;">
+                                ✓ JPG, PNG, WebP (max 5MB)
+                            </div>
+                        </div>
+
+                        <div id="uploadProgress" style="display: none; margin-bottom: 1rem;">
+                            <div style="font-size: 0.85rem; color: #7f8c8d; margin-bottom: 0.3rem;">Téléchargement en cours...</div>
+                            <div style="width: 100%; height: 8px; background: #ddd; border-radius: 4px; overflow: hidden;">
+                                <div id="progressBar" style="height: 100%; width: 0%; background: #4a148c; transition: width 0.3s;"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="galleryDesc">Description (optionnel)</label>
+                            <textarea id="galleryDesc" placeholder="Description de la photo"></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-plus"></i> Ajouter à la galerie
+                            </button>
+                        </div>
+
+                        <div id="galleryMessage" class="message" style="display: none;"></div>
+                    </form>
+                </div>
+
+                <div class="form-container">
+                    <h3><i class="fas fa-list"></i> Vos Photos (<span id="photoCount">0</span>)</h3>
+
+                    <div id="galleryContainer">
+                        <div class="empty-state">
+                            <div class="empty-state-icon"><i class="fas fa-image"></i></div>
+                            <p>Aucune photo pour l'instant. Ajoutez-en une!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('galleryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            addPhoto();
+        });
+
+        async function addPhoto() {
+            if (!window.db || !window.firebase) return;
+
+            const fileInput = document.getElementById('galleryFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                showMessage('galleryMessage', 'Veuillez sélectionner une image', 'error');
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage('galleryMessage', 'L\'image doit faire moins de 5MB', 'error');
+                return;
+            }
+
+            try {
+                document.getElementById('uploadProgress').style.display = 'block';
+
+                const storage = firebase.storage();
+                const filename = `gallery/${Date.now()}_${file.name}`;
+                const storageRef = storage.ref(filename);
+
+                const uploadTask = storageRef.put(file);
+
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        document.getElementById('progressBar').style.width = progress + '%';
+                    },
+                    (error) => {
+                        showMessage('galleryMessage', 'Erreur upload: ' + error.message, 'error');
+                        document.getElementById('uploadProgress').style.display = 'none';
+                    },
+                    async () => {
+                        const url = await storageRef.getDownloadURL();
+
+                        const data = {
+                            title: document.getElementById('galleryTitle').value,
+                            url: url,
+                            description: document.getElementById('galleryDesc').value,
+                            createdAt: new Date().toISOString()
+                        };
+
+                        await window.db.collection('gallery').add(data);
+                        showMessage('galleryMessage', '✓ Photo ajoutée avec succès!', 'success');
+                        document.getElementById('galleryForm').reset();
+                        document.getElementById('uploadProgress').style.display = 'none';
+                        document.getElementById('progressBar').style.width = '0%';
+                        loadGallery();
+                    }
+                );
+            } catch (error) {
+                showMessage('galleryMessage', 'Erreur: ' + error.message, 'error');
+                document.getElementById('uploadProgress').style.display = 'none';
+            }
+        }
+
+        async function loadGallery() {
+            if (!window.db) return;
+            try {
+                const snapshot = await window.db.collection('gallery').orderBy('createdAt', 'desc').get();
+                const container = document.getElementById('galleryContainer');
+
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon"><i class="fas fa-image"></i></div>
+                            <p>Aucune photo pour l'instant. Ajoutez-en une!</p>
+                        </div>
+                    `;
+                    document.getElementById('photoCount').textContent = '0';
+                    return;
+                }
+
+                document.getElementById('photoCount').textContent = snapshot.size;
+
+                const grid = document.createElement('div');
+                grid.className = 'gallery-grid';
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const date = new Date(data.createdAt).toLocaleDateString('fr-FR');
+
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+
+                    const img = document.createElement('img');
+                    img.src = data.url;
+                    img.alt = data.title;
+                    img.className = 'gallery-image';
+
+                    const info = document.createElement('div');
+                    info.className = 'gallery-item-info';
+
+                    const title = document.createElement('div');
+                    title.className = 'gallery-item-title';
+                    title.textContent = data.title;
+
+                    const dateEl = document.createElement('div');
+                    dateEl.className = 'gallery-item-date';
+                    dateEl.textContent = date;
+
+                    const actions = document.createElement('div');
+                    actions.className = 'gallery-item-actions';
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'btn-danger';
+                    deleteBtn.textContent = '🗑️ Supprimer';
+                    deleteBtn.addEventListener('click', () => deletePhoto(doc.id));
+
+                    actions.appendChild(deleteBtn);
+                    info.appendChild(title);
+                    info.appendChild(dateEl);
+                    info.appendChild(actions);
+                    item.appendChild(img);
+                    item.appendChild(info);
+                    grid.appendChild(item);
+                });
+
+                container.innerHTML = '';
+                container.appendChild(grid);
+            } catch (error) {
+                console.error('Error loading gallery:', error);
+            }
+        }
+
+        async function deletePhoto(photoId) {
+            if (!window.db) return;
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette photo?')) return;
+
+            try {
+                await window.db.collection('gallery').doc(photoId).delete();
+                showMessage('galleryMessage', '✓ Photo supprimée!', 'success');
+                loadGallery();
+            } catch (error) {
+                showMessage('galleryMessage', 'Erreur: ' + error.message, 'error');
+            }
+        }
+
+        function showMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `message ${type}`;
+            element.style.display = 'flex';
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                if (document.getElementById('dashboardSection').style.display !== 'none') {
+                    loadGallery();
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

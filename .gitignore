@@ -15,9 +15,3 @@ Thumbs.db
 # Firebase and sensitive keys
 scripts/service-account-key.json
 .firebase/
-
-# Admin pages (local development)
-admin/content.html
-admin/dashboard.html
-admin/gallery.html
-admin/playlist.html
