@@ -7,9 +7,47 @@
     
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
     <script src="../js/firebase-config.js"></script>
-    
+
+    <!-- Authentication Guard (Google Auth Required) -->
+    <script>
+        // Vérifier l'authentification AVANT de charger la page
+        let isAuthenticated = false;
+
+        // Firebase Auth state listener - Authentification par Google obligatoire
+        if (window.firebase) {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (!user) {
+                    // Utilisateur non connecté - rediriger vers page accueil avec login
+                    console.warn('⛔ Accès non autorisé - Authentification Google requise');
+                    window.location.href = '/';  // Rediriger vers page d'accueil
+                } else {
+                    // Vérifier les custom claims admin
+                    user.getIdTokenResult().then((idTokenResult) => {
+                        if (!idTokenResult.claims.admin) {
+                            console.warn('⛔ Droits admin manquants - Vous n\'êtes pas administrateur');
+                            alert('Accès refusé: Seuls les administrateurs peuvent accéder à cette zone.');
+                            firebase.auth().signOut().then(() => {
+                                window.location.href = '/';
+                            });
+                        } else {
+                            console.log('✅ Authentification confirmée - Accès admin autorisé');
+                            isAuthenticated = true;
+                        }
+                    }).catch(error => {
+                        console.error('❌ Erreur vérification droits:', error);
+                        window.location.href = '/';
+                    });
+                }
+            });
+        } else {
+            console.error('❌ Firebase non initialisé');
+            window.location.href = '/';
+        }
+    </script>
+
     <style>
         body {
             font-family: Arial, sans-serif;

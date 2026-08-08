@@ -20,10 +20,10 @@
 
 # Redirects and rewrites
 
-# Exception for admin console - do not redirect to index.html
+# Exception for admin console - SPA routing
 [[redirects]]
   from = "/admin/*"
-  to = "/admin/:splat"
+  to = "/admin/index.html"
   status = 200
 
 # This rule is for Single Page Applications (SPAs) to ensure all routes are handled by index.html.
