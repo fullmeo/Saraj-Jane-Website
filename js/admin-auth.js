@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             // Utilisateur non connecté
-            if (!window.location.pathname.includes('login.html') && 
+            if (!window.location.pathname.includes('login.html') &&
                 !window.location.pathname.endsWith('admin/') &&
                 !window.location.pathname.endsWith('admin')) {
                 // Rediriger vers la page de connexion si non connecté
-                window.location.href = 'index.html';
+                window.location.href = '/admin/';
             }
         }
     });
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function handleLogout() {
         try {
             await auth.signOut();
-            window.location.href = 'index.html';
+            window.location.href = '/admin/';
         } catch (error) {
             console.error('Erreur lors de la déconnexion:', error);
             showMessage(messageEl, "Une erreur est survenue lors de la déconnexion.", 'error');
