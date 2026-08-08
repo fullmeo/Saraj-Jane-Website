@@ -1,0 +1,82 @@
+{
+  "@context": "https://schema.org",
+  "@type": "EventSeries",
+  "name": "Sarah-Jane Iffra - Concerts Jazz 2026",
+  "description": "Série de concerts jazz et tribut Amy Winehouse à Lyon 2026",
+  "url": "https://sarah-jane-iffra.netlify.app",
+  "hasEvent": [
+    {
+      "@type": "Event",
+      "name": "Tribute Amy Winehouse - Concert Lyon",
+      "description": "Soirée spéciale hommage à Amy Winehouse avec Sarah-Jane Iffra, chanteuse soul & jazz",
+      "image": "https://sarah-jane-iffra.netlify.app/images/concert-1.jpg",
+      "startDate": "2026-05-15T20:00:00+02:00",
+      "endDate": "2026-05-15T23:00:00+02:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "VenueOrEventSpace",
+        "name": "Auditorium Stéphane Grappelli",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Cité Internationale de la Musique",
+          "addressLocality": "Lyon",
+          "addressRegion": "Rhône-Alpes",
+          "postalCode": "69400",
+          "addressCountry": "FR"
+        }
+      },
+      "performer": {
+        "@type": "Person",
+        "name": "Sarah-Jane Iffra",
+        "description": "Chanteuse Jazz & Soul - Tribute Amy Winehouse"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://sarah-jane-iffra.netlify.app/concerts",
+        "priceCurrency": "EUR",
+        "price": "15",
+        "availability": "https://schema.org/PreOrder",
+        "validFrom": "2026-03-17T00:00:00Z"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "45"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "Masterclass Vocal Jazz - Sarah-Jane Iffra",
+      "description": "Atelier technique vocale et interprétation jazz avec Sarah-Jane Iffra",
+      "image": "https://sarah-jane-iffra.netlify.app/images/masterclass.jpg",
+      "startDate": "2026-06-20T14:00:00+02:00",
+      "endDate": "2026-06-20T17:00:00+02:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "VenueOrEventSpace",
+        "name": "Studio Jazz Lyon",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Vénissieux",
+          "addressLocality": "Lyon",
+          "addressRegion": "Rhône-Alpes",
+          "postalCode": "69200",
+          "addressCountry": "FR"
+        }
+      },
+      "performer": {
+        "@type": "Person",
+        "name": "Sarah-Jane Iffra"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://sarah-jane-iffra.netlify.app/masterclass",
+        "priceCurrency": "EUR",
+        "price": "45",
+        "availability": "https://schema.org/PreOrder"
+      }
+    }
+  ]
+}

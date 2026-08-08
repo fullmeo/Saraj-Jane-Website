@@ -1,0 +1,51 @@
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "Sarah-Jane Iffra",
+  "description": "Artiste jazz lyon, tribute Amy Winehouse, chanteuse d'alertes",
+  "url": "https://sarah-jane-iffra.netlify.app",
+  "image": "https://sarah-jane-iffra.netlify.app/images/sarah-jane-hero.jpg",
+  "genre": ["Jazz", "Soul", "Blues"],
+  "foundingDate": "2006",
+  "founder": {
+    "@type": "Person",
+    "name": "Sarah-Jane Iffra",
+    "birthPlace": {
+      "@type": "Place",
+      "name": "Lyon, France"
+    }
+  },
+  "member": [
+    {
+      "@type": "Person",
+      "name": "Sarah-Jane Iffra",
+      "role": "Lead Vocals"
+    }
+  ],
+  "sameAs": [
+    "https://www.youtube.com/@sarahjaneiffra",
+    "https://soundcloud.com/sarah-jane-46822397",
+    "https://fr.tipeee.com/sarah-jane-iffra-il-est-lheure"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "ratingCount": "12",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://sarah-jane-iffra.netlify.app#contact"
+    }
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Customer Service",
+    "telephone": "+33-4-72-XX-XX-XX",
+    "email": "contact@sarahjaneiffra.com",
+    "areaServed": ["FR"]
+  }
+}

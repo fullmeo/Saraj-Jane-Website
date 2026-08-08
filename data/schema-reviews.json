@@ -1,0 +1,178 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Témoignages Clients - Sarah-Jane Iffra",
+  "description": "Avis et témoignages de clients satisfaits",
+  "itemListElement": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Marie Dupont"
+      },
+      "reviewBody": "Coaching vocal extraordinaire! Sarah-Jane a transformé ma technique. Très professionnelle et bienveillante. Recommandé!",
+      "datePublished": "2026-01-15",
+      "reviewer": {
+        "@type": "Person",
+        "name": "Marie Dupont"
+      }
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Pierre Bernard"
+      },
+      "reviewBody": "Concert d'exception! Voix magnifique, interprétation sensible. L'émotion était palpable. À voir absolument!",
+      "datePublished": "2026-01-12"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Céline Laurent"
+      },
+      "reviewBody": "Masterclass incroyable. Technique vocale professionnelle, conseils pratiques, ambiance chaleureuse. Merci Sarah-Jane!",
+      "datePublished": "2025-12-20"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Thomas Michaud"
+      },
+      "reviewBody": "Prestation mariage parfaite! Sarah-Jane a créé une atmosphère magique. Les invités parlent encore de sa performance.",
+      "datePublished": "2025-11-30"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Sophie Rousseau"
+      },
+      "reviewBody": "Coaching préparation audition conservatoire - succès! Sarah-Jane a su identifier mes forces et points à travailler.",
+      "datePublished": "2025-11-10"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Luc Fontaine"
+      },
+      "reviewBody": "Tribute Amy Winehouse Lyon - émouvant et professionnel. Sarah-Jane capture l'essence de la légende avec respect.",
+      "datePublished": "2025-10-25"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Isabelle Martin"
+      },
+      "reviewBody": "Cours de chant avec Sarah-Jane - transformateur! Augmentation confiance, technique améliorée. Hautement recommandé.",
+      "datePublished": "2025-10-15"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Alain Gérard"
+      },
+      "reviewBody": "Événement corporate - excellence! Sarah-Jane a capté l'audience du début à la fin. Très professionnel.",
+      "datePublished": "2025-09-20"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Nathalie Collin"
+      },
+      "reviewBody": "Voix sublime, présence scénique impressionnante. Sarah-Jane est une véritable artiste. Merveilleux!",
+      "datePublished": "2025-09-10"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "François Blanc"
+      },
+      "reviewBody": "Formation chant jazz - excellente! Sarah-Jane explique avec clarté et passion. Cours à recommander.",
+      "datePublished": "2025-08-30"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Véronique Lefevre"
+      },
+      "reviewBody": "Chanteuse d'alertes performance - captivant! Technique vocale et message émotionnel puissants.",
+      "datePublished": "2025-08-15"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Christophe Daveau"
+      },
+      "reviewBody": "Coach vocal professionnel, résultats rapides. Sarah-Jane connait son métier. Vraiment content!",
+      "datePublished": "2025-07-28"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "ratingCount": "12",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+}

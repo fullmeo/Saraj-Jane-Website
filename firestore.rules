@@ -1,34 +1,147 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Règles pour la collection 'gallery'
+
+    // ========== FONCTIONS HELPER POUR LA SÉCURITÉ ==========
+
+    // Vérifie si l'utilisateur est un admin authentifié
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Vérifie si la donnée est valide (pas vide, pas trop longue)
+    function isValidString(value, minLength, maxLength) {
+      return value is string &&
+             value.size() >= minLength &&
+             value.size() <= maxLength;
+    }
+
+    // Vérifie si l'URL est valide
+    function isValidURL(url) {
+      return url is string &&
+             url.size() > 0 &&
+             url.size() <= 2048 &&
+             (url.matches('^https?://.*') || url.matches('^/images/.*'));
+    }
+
+    // Vérifie si le timestamp est récent (pas dans le futur)
+    function isValidTimestamp(timestamp) {
+      return timestamp is timestamp &&
+             timestamp <= request.time;
+    }
+
+    // ========== RÈGLES POUR LA COLLECTION 'gallery' ==========
     match /gallery/{imageId} {
-      // Lecture autorisée à tous
+      // Lecture autorisée à tous (site public)
       allow read: if true;
-      
-      // Écriture réservée aux administrateurs authentifiés
-      allow create, update, delete: if request.auth != null && 
-        request.auth.token.admin == true;
+
+      // Création d'image - Admin uniquement avec validation
+      allow create: if isAdmin() &&
+        request.resource.data.keys().hasAll(['url', 'title', 'category', 'createdAt']) &&
+        isValidURL(request.resource.data.url) &&
+        isValidString(request.resource.data.title, 1, 200) &&
+        isValidString(request.resource.data.category, 1, 50) &&
+        isValidTimestamp(request.resource.data.createdAt) &&
+        // Champs optionnels avec validation
+        (!request.resource.data.keys().hasAny(['description']) ||
+         isValidString(request.resource.data.description, 0, 1000)) &&
+        (!request.resource.data.keys().hasAny(['featured']) ||
+         request.resource.data.featured is bool);
+
+      // Mise à jour - Admin uniquement, ne peut pas changer createdAt
+      allow update: if isAdmin() &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        (
+          !request.resource.data.keys().hasAny(['url']) ||
+          isValidURL(request.resource.data.url)
+        ) &&
+        (
+          !request.resource.data.keys().hasAny(['title']) ||
+          isValidString(request.resource.data.title, 1, 200)
+        ) &&
+        (
+          !request.resource.data.keys().hasAny(['category']) ||
+          isValidString(request.resource.data.category, 1, 50)
+        );
+
+      // Suppression - Admin uniquement
+      allow delete: if isAdmin();
     }
-    
-    // Règles pour la collection 'videos'
+
+    // ========== RÈGLES POUR LA COLLECTION 'videos' ==========
     match /videos/{videoId} {
-      // Lecture autorisée à tous
+      // Lecture autorisée à tous (site public)
       allow read: if true;
-      
-      // Écriture réservée aux administrateurs authentifiés
-      allow create, update, delete: if request.auth != null && 
-        request.auth.token.admin == true;
+
+      // Création de vidéo - Admin uniquement avec validation
+      allow create: if isAdmin() &&
+        request.resource.data.keys().hasAll(['url', 'title', 'platform', 'createdAt']) &&
+        isValidURL(request.resource.data.url) &&
+        isValidString(request.resource.data.title, 1, 200) &&
+        request.resource.data.platform in ['youtube', 'vimeo', 'dailymotion'] &&
+        isValidTimestamp(request.resource.data.createdAt) &&
+        // Champs optionnels
+        (!request.resource.data.keys().hasAny(['description']) ||
+         isValidString(request.resource.data.description, 0, 2000)) &&
+        (!request.resource.data.keys().hasAny(['views']) ||
+         request.resource.data.views is int) &&
+        (!request.resource.data.keys().hasAny(['featured']) ||
+         request.resource.data.featured is bool);
+
+      // Mise à jour - Admin uniquement
+      allow update: if isAdmin() &&
+        request.resource.data.createdAt == resource.data.createdAt;
+
+      // Suppression - Admin uniquement
+      allow delete: if isAdmin();
     }
-    
-    // Règles pour la collection 'settings'
-    match /settings/{document=**} {
-      // Lecture autorisée à tous
+
+    // ========== RÈGLES POUR LA COLLECTION 'settings' ==========
+    match /settings/{settingId} {
+      // Lecture autorisée à tous (pour les paramètres publics)
       allow read: if true;
-      
+
       // Écriture réservée aux administrateurs authentifiés
-      allow write: if request.auth != null && 
-        request.auth.token.admin == true;
+      allow write: if isAdmin();
+    }
+
+    // ========== RÈGLES POUR LA COLLECTION 'contacts' (messages du formulaire) ==========
+    match /contacts/{contactId} {
+      // Lecture réservée aux admins uniquement
+      allow read: if isAdmin();
+
+      // Création de message - Rate limiting basique
+      // Tout le monde peut créer, mais avec validation stricte
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'message', 'createdAt']) &&
+        isValidString(request.resource.data.name, 2, 100) &&
+        isValidString(request.resource.data.email, 5, 254) &&
+        isValidString(request.resource.data.message, 10, 5000) &&
+        isValidTimestamp(request.resource.data.createdAt) &&
+        // Email doit contenir @
+        request.resource.data.email.matches('.*@.*\\..*') &&
+        // Pas de champs supplémentaires non autorisés
+        request.resource.data.keys().hasOnly(['name', 'email', 'message', 'phone', 'createdAt', 'status']) &&
+        // Phone optionnel mais validé
+        (!request.resource.data.keys().hasAny(['phone']) ||
+         isValidString(request.resource.data.phone, 0, 20));
+
+      // Mise à jour et suppression réservées aux admins
+      allow update, delete: if isAdmin();
+    }
+
+    // ========== RÈGLES POUR LES STATISTIQUES YOUTUBE ==========
+    match /youtube-stats/{statId} {
+      // Lecture autorisée à tous (affichage public)
+      allow read: if true;
+
+      // Écriture réservée aux admins
+      allow write: if isAdmin();
+    }
+
+    // ========== BLOQUER TOUT ACCÈS NON DÉFINI ==========
+    // Par défaut, tout ce qui n'est pas explicitement autorisé est refusé
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

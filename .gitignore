@@ -8,3 +8,16 @@ temp/
 *.tmp
 .DS_Store
 Thumbs.db
+
+# Local Netlify folder
+.netlify
+
+# Firebase and sensitive keys
+scripts/service-account-key.json
+.firebase/
+
+# Admin pages (local development)
+admin/content.html
+admin/dashboard.html
+admin/gallery.html
+admin/playlist.html

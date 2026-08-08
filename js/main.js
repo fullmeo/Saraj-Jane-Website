@@ -99,24 +99,58 @@ function handleFormSubmit(e) {
     const form = e.target;
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData.entries());
-    
-    // Validation basique
-    if (!formValues.name || !formValues.email || !formValues.message) {
-        alert('Veuillez remplir tous les champs obligatoires.');
+
+    // Vérifier si le module de validation est chargé
+    if (!window.FormValidator) {
+        console.error('Module de validation non chargé');
+        alert('Erreur: Le système de validation n\'est pas disponible. Veuillez rafraîchir la page.');
         return;
     }
-    
-    // Simulation d'envoi (à remplacer par un vrai appel API)
-    console.log('Formulaire soumis avec succès:', formValues);
-    
+
+    // Protection anti-spam
+    const submissionTracker = new window.FormValidator.FormSubmissionTracker(3, 3600000); // 3 soumissions par heure
+    if (!submissionTracker.canSubmit()) {
+        const remainingMinutes = Math.ceil(submissionTracker.getRemainingTime() / 60000);
+        alert(`Vous avez atteint la limite de soumissions. Veuillez réessayer dans ${remainingMinutes} minutes.`);
+        return;
+    }
+
+    // Valider le formulaire
+    const validation = window.FormValidator.validateContactForm(formValues);
+
+    if (!validation.valid) {
+        // Afficher les erreurs de validation
+        window.FormValidator.displayValidationErrors(form, validation.errors);
+
+        // Scroll vers la première erreur
+        const firstError = form.querySelector('.field-error');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+        }
+        return;
+    }
+
+    // Enregistrer la soumission
+    submissionTracker.recordSubmission();
+
+    // TODO: Remplacer par un vrai appel API (Firebase Cloud Function ou service email)
+    console.log('Formulaire validé et prêt à être envoyé:', validation.sanitizedData);
+
     // Afficher un message de succès
     const successMessage = document.createElement('div');
     successMessage.className = 'form-success';
-    successMessage.textContent = 'Votre message a été envoyé avec succès !';
-    
+    successMessage.textContent = '✓ Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.';
+    successMessage.style.padding = '1rem';
+    successMessage.style.marginTop = '1rem';
+    successMessage.style.backgroundColor = '#d4edda';
+    successMessage.style.color = '#155724';
+    successMessage.style.border = '1px solid #c3e6cb';
+    successMessage.style.borderRadius = '0.375rem';
+
     form.reset();
     form.appendChild(successMessage);
-    
+
     // Supprimer le message après 5 secondes
     setTimeout(() => {
         successMessage.remove();
