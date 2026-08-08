@@ -19,6 +19,9 @@
         // Afficher un message de chargement
         document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"><div style="text-align:center;color:white;"><h2>🔐 Vérification de l\'authentification Google...</h2><p>Veuillez patienter</p></div></div>';
 
+        // Emails autorisés pour accéder à l'admin
+        const AUTHORIZED_EMAILS = ['ifrasoleil@gmail.com', 'serignetrumpet@gmail.com'];
+
         // Firebase Auth state listener - Authentification par Google obligatoire
         if (window.firebase) {
             firebase.auth().onAuthStateChanged((user) => {
@@ -28,25 +31,36 @@
                     document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"><div style="text-align:center;color:white;max-width:400px;"><h2>🔑 Authentification Google requise</h2><p>Vous devez être connecté avec Google pour accéder à la console admin.</p><p style="margin-top:2rem;font-size:0.9rem;opacity:0.8;">Redirection vers la page d\'accueil en cours...</p></div></div>';
                     setTimeout(() => { window.location.href = '/'; }, 2000);
                 } else {
-                    // Vérifier les custom claims admin
-                    user.getIdTokenResult().then((idTokenResult) => {
-                        if (!idTokenResult.claims.admin) {
-                            console.warn('⛔ Droits admin manquants - Vous n\'êtes pas administrateur');
-                            document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"><div style="text-align:center;color:white;max-width:400px;"><h2>⛔ Droits insuffisants</h2><p>Vous devez être administrateur pour accéder à cette zone.</p><p style="margin-top:2rem;font-size:0.9rem;opacity:0.8;">Redirection en cours...</p></div></div>';
-                            setTimeout(() => {
-                                firebase.auth().signOut().then(() => {
-                                    window.location.href = '/';
-                                });
-                            }, 2000);
-                        } else {
-                            console.log('✅ Authentification confirmée - Accès admin autorisé');
-                            isAuthenticated = true;
-                        }
-                    }).catch(error => {
-                        console.error('❌ Erreur vérification droits:', error);
-                        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"><div style="text-align:center;color:white;"><h2>❌ Erreur d\'authentification</h2><p>Une erreur s\'est produite lors de la vérification de vos droits.</p></div></div>';
-                        setTimeout(() => { window.location.href = '/'; }, 2000);
-                    });
+                    // Vérifier l'email autorisé
+                    if (!AUTHORIZED_EMAILS.includes(user.email)) {
+                        console.warn('⛔ Accès refusé - Email non autorisé:', user.email);
+                        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"><div style="text-align:center;color:white;max-width:400px;"><h2>⛔ Accès refusé</h2><p>Votre email (<strong>' + user.email + '</strong>) n\'est pas autorisé à accéder à cette zone.</p><p style="margin-top:2rem;font-size:0.9rem;opacity:0.8;">Seuls les administrateurs autorisés peuvent y accéder.</p><p style="margin-top:1rem;font-size:0.9rem;opacity:0.8;">Redirection en cours...</p></div></div>';
+                        setTimeout(() => {
+                            firebase.auth().signOut().then(() => {
+                                window.location.href = '/';
+                            });
+                        }, 3000);
+                    } else {
+                        // Vérifier les custom claims admin
+                        user.getIdTokenResult().then((idTokenResult) => {
+                            if (!idTokenResult.claims.admin) {
+                                console.warn('⛔ Droits admin manquants - Vous n\'êtes pas administrateur');
+                                document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"><div style="text-align:center;color:white;max-width:400px;"><h2>⛔ Droits insuffisants</h2><p>Vous devez être administrateur pour accéder à cette zone.</p><p style="margin-top:2rem;font-size:0.9rem;opacity:0.8;">Redirection en cours...</p></div></div>';
+                                setTimeout(() => {
+                                    firebase.auth().signOut().then(() => {
+                                        window.location.href = '/';
+                                    });
+                                }, 2000);
+                            } else {
+                                console.log('✅ Authentification confirmée - Accès admin autorisé pour:', user.email);
+                                isAuthenticated = true;
+                            }
+                        }).catch(error => {
+                            console.error('❌ Erreur vérification droits:', error);
+                            document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"><div style="text-align:center;color:white;"><h2>❌ Erreur d\'authentification</h2><p>Une erreur s\'est produite lors de la vérification de vos droits.</p></div></div>';
+                            setTimeout(() => { window.location.href = '/'; }, 2000);
+                        });
+                    }
                 }
             });
         } else {
