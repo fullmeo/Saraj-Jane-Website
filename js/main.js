@@ -594,6 +594,19 @@ async function loadArtisticGallery() {
             description: 'La beauté à l\'état brut',
             category: 'nature'
         }
+,
+{
+    src: './images/gallery/Image 2026-10-30 at 18.30.41.jpeg',
+    title: 'Concert Live',
+    description: 'Sarah-Jane sur scène',
+    category: 'concert'
+},
+{
+    src: './images/gallery/Image 2026-10-30 at 18.30.42.jpeg',
+    title: 'Performance Scénique',
+    description: 'Sarah-Jane en performance',
+    category: 'concert'
+}
     ];
 
     // Créer les filtres de catégorie
