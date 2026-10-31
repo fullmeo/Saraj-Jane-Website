@@ -26,11 +26,9 @@
   to = "/admin/index.html"
   status = 200
 
-# This rule is for Single Page Applications (SPAs) to ensure all routes are handled by index.html.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Pas de règle catch-all "/* → /index.html" : le site est statique (HTML multi-fichiers),
+# et ce rewrite renvoyait la page d'accueil en 200 pour toute URL inconnue (soft 404).
+# Les URLs inexistantes renvoient désormais un vrai 404.
 
 # Security and caching headers
 # These headers enhance security and improve performance.

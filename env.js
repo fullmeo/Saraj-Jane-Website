@@ -13,7 +13,7 @@ window.env = {
   API_BASE_URL: process.env.VITE_API_BASE_URL || 'https://api.sarahjaneiffra.com',
   
   // URL de base du site
-  SITE_URL: process.env.VITE_APP_URL || 'https://sarahjaneiffra.com',
+  SITE_URL: process.env.VITE_APP_URL || 'https://sarah-jane-iffra.netlify.app',
   
   // Configuration Firebase (ces valeurs sont remplacées à la construction)
   FIREBASE_CONFIG: {
