@@ -595,18 +595,18 @@ async function loadArtisticGallery() {
             category: 'nature'
         }
 ,
-{
-    src: './images/gallery/Image 2026-10-30 at 18.30.41.jpeg',
-    title: 'Concert Live',
-    description: 'Sarah-Jane sur scène',
-    category: 'concert'
-},
-{
-    src: './images/gallery/Image 2026-10-30 at 18.30.42.jpeg',
-    title: 'Performance Scénique',
-    description: 'Sarah-Jane en performance',
-    category: 'concert'
-}
+        {
+            src: './images/gallery/concert-scene-001.jpg',
+            title: 'Concert Live',
+            description: 'Sarah-Jane sur scène',
+            category: 'concert'
+        },
+        {
+            src: './images/gallery/concert-scene-002.jpg',
+            title: 'Performance Scénique',
+            description: 'Sarah-Jane en performance',
+            category: 'concert'
+        }
     ];
 
     // Créer les filtres de catégorie
