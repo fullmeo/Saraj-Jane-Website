@@ -3,7 +3,7 @@
  * Ce fichier contient les métadonnées pour le référencement et les réseaux sociaux
  */
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sarahjaneiffra.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sarah-jane-iffra.netlify.app';
 const siteName = 'Sarah Jane Iffra';
 const siteDescription = 'Artiste et musicienne - Découvrez mon univers artistique à travers mes œuvres et performances';
 const siteImage = `${siteUrl}/images/og-image.jpg`;
@@ -51,7 +51,7 @@ const contactInfo = {
   },
   businessHours: 'Mo-Fr 10:00-18:00',
   priceRange: '€€',
-  acceptsReservations: 'https://sarahjaneiffra.com/reservation'
+  acceptsReservations: 'https://sarah-jane-iffra.netlify.app/reservation'
 };
 
 const organization = {

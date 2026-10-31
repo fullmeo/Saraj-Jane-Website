@@ -65,7 +65,7 @@ const securityHeaders = {
 // Configuration pour les API
 const apiSecurityHeaders = {
   ...securityHeaders,
-  'Access-Control-Allow-Origin': 'https://sarahjaneiffra.com',
+  'Access-Control-Allow-Origin': 'https://sarah-jane-iffra.netlify.app',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Allow-Credentials': 'true',

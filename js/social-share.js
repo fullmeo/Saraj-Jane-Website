@@ -6,7 +6,7 @@
 const socialConfig = {
     // Configuration de base
     siteName: 'Sarah Jane Iffra',
-    siteUrl: 'https://sarahjaneiffra.com',
+    siteUrl: 'https://sarah-jane-iffra.netlify.app',
     twitterHandle: '@sarahjaneiffra',
     
     // Chemins par défaut
